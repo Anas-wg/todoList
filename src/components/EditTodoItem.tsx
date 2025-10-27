@@ -30,7 +30,7 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
       dueDate: editedDueDate,
       priority: editedPriority,
     });
-    onCancel(); // to exit edit mode
+    onCancel();
   };
 
   return (

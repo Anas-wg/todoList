@@ -5,19 +5,14 @@ import { useTodoStore } from "../store/todoStore";
 interface DisplayTodoItemProps {
   todo: Todo;
   onEdit: () => void;
+  onDeleteRequest: () => void;
 }
 
-const DisplayTodoItem = ({ todo, onEdit }: DisplayTodoItemProps) => {
-  const { updateTodo, deleteTodo } = useTodoStore();
+const DisplayTodoItem = ({ todo, onEdit, onDeleteRequest }: DisplayTodoItemProps) => {
+  const { updateTodo } = useTodoStore();
 
   const handleToggleComplete = () => {
     updateTodo(todo.id, { completed: !todo.completed });
-  };
-
-  const handleDelete = () => {
-    if (window.confirm("정말로 이 할 일을 삭제하시겠습니까?")) {
-      deleteTodo(todo.id);
-    }
   };
 
   return (
@@ -41,7 +36,7 @@ const DisplayTodoItem = ({ todo, onEdit }: DisplayTodoItemProps) => {
       <span className="todo-priority">우선순위: {todo.priority}</span>
       <div className="todo-actions">
         <button onClick={onEdit}>수정</button>
-        <button onClick={handleDelete}>삭제</button>
+        <button onClick={onDeleteRequest}>삭제</button>
       </div>
     </div>
   );

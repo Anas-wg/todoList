@@ -17,6 +17,7 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
     dueDate: "",
     priority: "medium",
   });
+  const [errors, setErrors] = useState<{ title?: string }>({});
 
   const handleInputChange = (
     event: React.ChangeEvent<
@@ -28,13 +29,17 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
       ...prevData,
       [name]: value,
     }));
+
+    if (name === "title" && value.trim()) {
+      setErrors((prevErrors) => ({ ...prevErrors, title: undefined }));
+    }
   };
 
   const handleFormSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     if (!formData.title.trim()) {
-      alert("제목은 필수 항목입니다.");
+      setErrors({ title: "제목은 필수 항목입니다." });
       return;
     }
 
@@ -46,6 +51,7 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
       dueDate: "",
       priority: "medium",
     });
+    setErrors({});
   };
 
   return (
@@ -60,8 +66,8 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
           value={formData.title}
           onChange={handleInputChange}
           placeholder="예: 리액트 공부하기"
-          required
         />
+        {errors.title && <p style={{ color: "red" }}>{errors.title}</p>}
       </div>
       <div>
         <label htmlFor="description">내용</label>
