@@ -36,7 +36,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
   };
 
   return (
-    <li className="todo-item">
+    <li className="bg-primary-light p-4 rounded-lg shadow-sm flex items-center justify-between">
       {isEditing ? (
         <EditTodoItem todo={todo} onCancel={handleCancelEdit} />
       ) : (

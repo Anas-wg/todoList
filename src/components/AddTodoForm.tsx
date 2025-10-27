@@ -55,10 +55,10 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <h3>새로운 할 일 추가</h3>
-      <div>
-        <label htmlFor="title">제목</label>
+    <form onSubmit={handleFormSubmit} className="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h3 className="text-2xl font-semibold mb-4 text-primary-dark">새로운 할 일 추가</h3>
+      <div className="mb-4">
+        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">제목</label>
         <input
           id="title"
           type="text"
@@ -66,36 +66,40 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
           value={formData.title}
           onChange={handleInputChange}
           placeholder="예: 리액트 공부하기"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-DEFAULT focus:ring focus:ring-primary-DEFAULT focus:ring-opacity-50"
         />
-        {errors.title && <p style={{ color: "red" }}>{errors.title}</p>}
+        {errors.title && <p className="text-sm text-red-500 mt-1">{errors.title}</p>}
       </div>
-      <div>
-        <label htmlFor="description">내용</label>
+      <div className="mb-4">
+        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">내용</label>
         <textarea
           id="description"
           name="description"
           value={formData.description || ""}
           onChange={handleInputChange}
           placeholder="예: 5장까지 읽고 예제 실습"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-DEFAULT focus:ring focus:ring-primary-DEFAULT focus:ring-opacity-50"
         />
       </div>
-      <div>
-        <label htmlFor="dueDate">마감일</label>
+      <div className="mb-4">
+        <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700 mb-1">마감일</label>
         <input
           id="dueDate"
           type="date"
           name="dueDate"
           value={formData.dueDate}
           onChange={handleInputChange}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-DEFAULT focus:ring focus:ring-primary-DEFAULT focus:ring-opacity-50"
         />
       </div>
-      <div>
-        <label htmlFor="priority">우선순위</label>
+      <div className="mb-4">
+        <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-1">우선순위</label>
         <select
           id="priority"
           name="priority"
           value={formData.priority}
           onChange={handleInputChange}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-DEFAULT focus:ring focus:ring-primary-DEFAULT focus:ring-opacity-50"
         >
           <option value="low">Low</option>
           <option value="medium">Medium</option>
@@ -103,7 +107,9 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
           <option value="urgent">Urgent</option>
         </select>
       </div>
-      <button type="submit">추가하기</button>
+      <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+        추가하기
+      </button>
     </form>
   );
 };
