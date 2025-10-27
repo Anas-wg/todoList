@@ -4,7 +4,7 @@ import { useTodos } from "./hooks/useTodos";
 import TodoItem from "./components/TodoItem";
 
 function App() {
-  const { todos, createTodo } = useTodos();
+  const { todos, createTodo, updateTodo, deleteTodo } = useTodos();
 
   return (
     <div className="App">
@@ -17,7 +17,12 @@ function App() {
           <h2>My Todos</h2>
           <ul>
             {todos.map((todo) => (
-              <TodoItem key={todo.id} todo={todo} />
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                onUpdateTodo={updateTodo}
+                onDeleteTodo={deleteTodo}
+              />
             ))}
           </ul>
         </section>
