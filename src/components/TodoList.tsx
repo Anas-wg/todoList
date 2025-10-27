@@ -9,7 +9,7 @@ interface TodoListProps {
   onDeleteTodo: (id: string) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ todos, onUpdateTodo, onDeleteTodo }) => {
+const TodoList = ({ todos, onUpdateTodo, onDeleteTodo }: TodoListProps) => {
   return (
     <ul className="todo-list">
       {todos.map((todo) => (

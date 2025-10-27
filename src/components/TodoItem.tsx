@@ -1,6 +1,6 @@
-import React, { useState } from 'react'; // Import useState
-import type { Todo } from '../model/todo';
-import type { UpdateTodoData } from '../hooks/useTodos'; // Import UpdateTodoData type
+import React, { useState } from "react";
+import type { Todo } from "../model/todo";
+import type { UpdateTodoData } from "../hooks/useTodos";
 
 interface TodoItemProps {
   todo: Todo;
@@ -8,11 +8,19 @@ interface TodoItemProps {
   onDeleteTodo: (id: string) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, onUpdateTodo, onDeleteTodo }) => {
+const TodoItem = ({
+  todo,
+  onUpdateTodo,
+  onDeleteTodo,
+}: TodoItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(todo.title);
-  const [editedDescription, setEditedDescription] = useState(todo.description || '');
-  const [editedDueDate, setEditedDueDate] = useState(todo.dueDate ? todo.dueDate.toString().split('T')[0] : '');
+  const [editedDescription, setEditedDescription] = useState(
+    todo.description || ""
+  );
+  const [editedDueDate, setEditedDueDate] = useState(
+    todo.dueDate ? todo.dueDate.toString().split("T")[0] : ""
+  );
   const [editedPriority, setEditedPriority] = useState(todo.priority);
 
   const handleToggleComplete = () => {
@@ -20,23 +28,23 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onUpdateTodo, onDeleteTodo })
   };
 
   const handleDelete = () => {
-    if (window.confirm('정말로 이 할 일을 삭제하시겠습니까?')) {
+    if (window.confirm("정말로 이 할 일을 삭제하시겠습니까?")) {
       onDeleteTodo(todo.id);
     }
   };
 
   const handleEdit = () => {
     setIsEditing(true);
-    // Initialize edit state with current todo values
+
     setEditedTitle(todo.title);
-    setEditedDescription(todo.description || '');
-    setEditedDueDate(todo.dueDate ? todo.dueDate.toString().split('T')[0] : '');
+    setEditedDescription(todo.description || "");
+    setEditedDueDate(todo.dueDate ? todo.dueDate.toString().split("T")[0] : "");
     setEditedPriority(todo.priority);
   };
 
   const handleSaveEdit = () => {
     if (!editedTitle.trim()) {
-      alert('제목은 필수 항목입니다.');
+      alert("제목은 필수 항목입니다.");
       return;
     }
 
@@ -51,17 +59,15 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onUpdateTodo, onDeleteTodo })
 
   const handleCancelEdit = () => {
     setIsEditing(false);
-    // Reset edited state to original todo values
     setEditedTitle(todo.title);
-    setEditedDescription(todo.description || '');
-    setEditedDueDate(todo.dueDate ? todo.dueDate.toString().split('T')[0] : '');
+    setEditedDescription(todo.description || "");
+    setEditedDueDate(todo.dueDate ? todo.dueDate.toString().split("T")[0] : "");
     setEditedPriority(todo.priority);
   };
 
   return (
     <li className="todo-item">
       {isEditing ? (
-        // Editing mode
         <div className="edit-mode">
           <input
             type="text"
@@ -79,7 +85,9 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onUpdateTodo, onDeleteTodo })
           />
           <select
             value={editedPriority}
-            onChange={(e) => setEditedPriority(e.target.value as typeof todo.priority)}
+            onChange={(e) =>
+              setEditedPriority(e.target.value as typeof todo.priority)
+            }
           >
             <option value="low">Low</option>
             <option value="medium">Medium</option>
@@ -90,18 +98,23 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onUpdateTodo, onDeleteTodo })
           <button onClick={handleCancelEdit}>취소</button>
         </div>
       ) : (
-        // Display mode
         <div className="display-mode">
           <input
             type="checkbox"
             checked={todo.completed}
             onChange={handleToggleComplete}
           />
-          <span className={`todo-title ${todo.completed ? 'completed' : ''}`}>
+          <span className={`todo-title ${todo.completed ? "completed" : ""}`}>
             {todo.title}
           </span>
-          {todo.description && <p className="todo-description">{todo.description}</p>}
-          {todo.dueDate && <span className="todo-due-date">마감일: {todo.dueDate.toString().split('T')[0]}</span>}
+          {todo.description && (
+            <p className="todo-description">{todo.description}</p>
+          )}
+          {todo.dueDate && (
+            <span className="todo-due-date">
+              마감일: {todo.dueDate.toString().split("T")[0]}
+            </span>
+          )}
           <span className="todo-priority">우선순위: {todo.priority}</span>
           <div className="todo-actions">
             <button onClick={handleEdit}>수정</button>
