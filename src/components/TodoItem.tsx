@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import type { Todo } from "../model/todo";
 import type { UpdateTodoData } from "../hooks/useTodos";
+import DisplayTodoItem from "./DisplayTodoItem";
+import EditTodoItem from "./EditTodoItem";
 
 interface TodoItemProps {
   todo: Todo;
@@ -8,11 +10,7 @@ interface TodoItemProps {
   onDeleteTodo: (id: string) => void;
 }
 
-const TodoItem = ({
-  todo,
-  onUpdateTodo,
-  onDeleteTodo,
-}: TodoItemProps) => {
+const TodoItem = ({ todo, onUpdateTodo, onDeleteTodo }: TodoItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(todo.title);
   const [editedDescription, setEditedDescription] = useState(
@@ -35,7 +33,6 @@ const TodoItem = ({
 
   const handleEdit = () => {
     setIsEditing(true);
-
     setEditedTitle(todo.title);
     setEditedDescription(todo.description || "");
     setEditedDueDate(todo.dueDate ? todo.dueDate.toString().split("T")[0] : "");
@@ -59,68 +56,30 @@ const TodoItem = ({
 
   const handleCancelEdit = () => {
     setIsEditing(false);
-    setEditedTitle(todo.title);
-    setEditedDescription(todo.description || "");
-    setEditedDueDate(todo.dueDate ? todo.dueDate.toString().split("T")[0] : "");
-    setEditedPriority(todo.priority);
   };
 
   return (
     <li className="todo-item">
       {isEditing ? (
-        <div className="edit-mode">
-          <input
-            type="text"
-            value={editedTitle}
-            onChange={(e) => setEditedTitle(e.target.value)}
-          />
-          <textarea
-            value={editedDescription}
-            onChange={(e) => setEditedDescription(e.target.value)}
-          />
-          <input
-            type="date"
-            value={editedDueDate}
-            onChange={(e) => setEditedDueDate(e.target.value)}
-          />
-          <select
-            value={editedPriority}
-            onChange={(e) =>
-              setEditedPriority(e.target.value as typeof todo.priority)
-            }
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-            <option value="urgent">Urgent</option>
-          </select>
-          <button onClick={handleSaveEdit}>저장</button>
-          <button onClick={handleCancelEdit}>취소</button>
-        </div>
+        <EditTodoItem
+          editedTitle={editedTitle}
+          setEditedTitle={setEditedTitle}
+          editedDescription={editedDescription}
+          setEditedDescription={setEditedDescription}
+          editedDueDate={editedDueDate}
+          setEditedDueDate={setEditedDueDate}
+          editedPriority={editedPriority}
+          setEditedPriority={setEditedPriority}
+          onSave={handleSaveEdit}
+          onCancel={handleCancelEdit}
+        />
       ) : (
-        <div className="display-mode">
-          <input
-            type="checkbox"
-            checked={todo.completed}
-            onChange={handleToggleComplete}
-          />
-          <span className={`todo-title ${todo.completed ? "completed" : ""}`}>
-            {todo.title}
-          </span>
-          {todo.description && (
-            <p className="todo-description">{todo.description}</p>
-          )}
-          {todo.dueDate && (
-            <span className="todo-due-date">
-              마감일: {todo.dueDate.toString().split("T")[0]}
-            </span>
-          )}
-          <span className="todo-priority">우선순위: {todo.priority}</span>
-          <div className="todo-actions">
-            <button onClick={handleEdit}>수정</button>
-            <button onClick={handleDelete}>삭제</button>
-          </div>
-        </div>
+        <DisplayTodoItem
+          todo={todo}
+          onToggleComplete={handleToggleComplete}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
       )}
     </li>
   );
