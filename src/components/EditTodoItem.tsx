@@ -1,7 +1,9 @@
 import React from "react";
 import type { Todo } from "../model/todo";
+import { useTodoStore } from "../store/todoStore";
 
 interface EditTodoItemProps {
+  todoId: string;
   editedTitle: string;
   setEditedTitle: (title: string) => void;
   editedDescription: string;
@@ -10,11 +12,11 @@ interface EditTodoItemProps {
   setEditedDueDate: (dueDate: string) => void;
   editedPriority: Todo["priority"];
   setEditedPriority: (priority: Todo["priority"]) => void;
-  onSave: () => void;
   onCancel: () => void;
 }
 
 const EditTodoItem = ({
+  todoId,
   editedTitle,
   setEditedTitle,
   editedDescription,
@@ -23,9 +25,25 @@ const EditTodoItem = ({
   setEditedDueDate,
   editedPriority,
   setEditedPriority,
-  onSave,
   onCancel,
 }: EditTodoItemProps) => {
+  const { updateTodo } = useTodoStore();
+
+  const handleSave = () => {
+    if (!editedTitle.trim()) {
+      alert("제목은 필수 항목입니다.");
+      return;
+    }
+
+    updateTodo(todoId, {
+      title: editedTitle,
+      description: editedDescription,
+      dueDate: editedDueDate,
+      priority: editedPriority,
+    });
+    onCancel(); // to exit edit mode
+  };
+
   return (
     <div className="edit-mode">
       <input
@@ -51,7 +69,7 @@ const EditTodoItem = ({
         <option value="high">High</option>
         <option value="urgent">Urgent</option>
       </select>
-      <button onClick={onSave}>저장</button>
+      <button onClick={handleSave}>저장</button>
       <button onClick={onCancel}>취소</button>
     </div>
   );

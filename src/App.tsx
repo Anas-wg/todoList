@@ -1,10 +1,10 @@
 import "./App.css";
 import AddTodoForm from "./components/AddTodoForm";
-import { useTodos } from "./hooks/useTodos";
+import { useTodoStore } from "./store/todoStore";
 import TodoItem from "./components/TodoItem";
 
 function App() {
-  const { todos, createTodo, updateTodo, deleteTodo } = useTodos();
+  const { todos, createTodo } = useTodoStore();
 
   return (
     <div className="App">
@@ -20,8 +20,6 @@ function App() {
               <TodoItem
                 key={todo.id}
                 todo={todo}
-                onUpdateTodo={updateTodo}
-                onDeleteTodo={deleteTodo}
               />
             ))}
           </ul>

@@ -1,25 +1,31 @@
 import React from "react";
 import type { Todo } from "../model/todo";
+import { useTodoStore } from "../store/todoStore";
 
 interface DisplayTodoItemProps {
   todo: Todo;
-  onToggleComplete: () => void;
   onEdit: () => void;
-  onDelete: () => void;
 }
 
-const DisplayTodoItem = ({
-  todo,
-  onToggleComplete,
-  onEdit,
-  onDelete,
-}: DisplayTodoItemProps) => {
+const DisplayTodoItem = ({ todo, onEdit }: DisplayTodoItemProps) => {
+  const { updateTodo, deleteTodo } = useTodoStore();
+
+  const handleToggleComplete = () => {
+    updateTodo(todo.id, { completed: !todo.completed });
+  };
+
+  const handleDelete = () => {
+    if (window.confirm("정말로 이 할 일을 삭제하시겠습니까?")) {
+      deleteTodo(todo.id);
+    }
+  };
+
   return (
     <div className="display-mode">
       <input
         type="checkbox"
         checked={todo.completed}
-        onChange={onToggleComplete}
+        onChange={handleToggleComplete}
       />
       <span className={`todo-title ${todo.completed ? "completed" : ""}`}>
         {todo.title}
@@ -35,7 +41,7 @@ const DisplayTodoItem = ({
       <span className="todo-priority">우선순위: {todo.priority}</span>
       <div className="todo-actions">
         <button onClick={onEdit}>수정</button>
-        <button onClick={onDelete}>삭제</button>
+        <button onClick={handleDelete}>삭제</button>
       </div>
     </div>
   );
