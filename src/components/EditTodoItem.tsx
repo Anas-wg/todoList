@@ -1,33 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import type { Todo } from "../model/todo";
 import { useTodoStore } from "../store/todoStore";
 
 interface EditTodoItemProps {
-  todoId: string;
-  editedTitle: string;
-  setEditedTitle: (title: string) => void;
-  editedDescription: string;
-  setEditedDescription: (description: string) => void;
-  editedDueDate: string;
-  setEditedDueDate: (dueDate: string) => void;
-  editedPriority: Todo["priority"];
-  setEditedPriority: (priority: Todo["priority"]) => void;
+  todo: Todo;
   onCancel: () => void;
 }
 
-const EditTodoItem = ({
-  todoId,
-  editedTitle,
-  setEditedTitle,
-  editedDescription,
-  setEditedDescription,
-  editedDueDate,
-  setEditedDueDate,
-  editedPriority,
-  setEditedPriority,
-  onCancel,
-}: EditTodoItemProps) => {
+const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
   const { updateTodo } = useTodoStore();
+  const [editedTitle, setEditedTitle] = useState(todo.title);
+  const [editedDescription, setEditedDescription] = useState(
+    todo.description || ""
+  );
+  const [editedDueDate, setEditedDueDate] = useState(
+    todo.dueDate ? todo.dueDate.toString().split("T")[0] : ""
+  );
+  const [editedPriority, setEditedPriority] = useState(todo.priority);
 
   const handleSave = () => {
     if (!editedTitle.trim()) {
@@ -35,7 +24,7 @@ const EditTodoItem = ({
       return;
     }
 
-    updateTodo(todoId, {
+    updateTodo(todo.id, {
       title: editedTitle,
       description: editedDescription,
       dueDate: editedDueDate,
