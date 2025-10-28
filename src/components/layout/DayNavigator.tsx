@@ -1,5 +1,6 @@
 import DayHeader from "./DayHeader";
 
+// 상단 날짜 이동 로직 컴포넌트
 interface DayNavigatorProps {
   date: Date;
   onDateChange: (date: Date) => void;

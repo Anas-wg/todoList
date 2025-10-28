@@ -89,7 +89,12 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
         label="우선순위"
         options={PRIORITY_OPTIONS}
       />
-      <BaseButton type="submit" variant="z-primary" size="M">
+      <BaseButton
+        type="submit"
+        variant="z-primary"
+        size="M"
+        aria-label="새 할 일 추가"
+      >
         추가하기
       </BaseButton>
     </form>

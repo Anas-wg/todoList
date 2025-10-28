@@ -35,6 +35,7 @@ const DisplayTodoItem = ({
           />
           <label
             htmlFor={`checkbox-${todo.id}`}
+            aria-label={`할 일 ${todo.completed ? "완료 취소" : "완료"}`}
             className={`flex items-center justify-center w-5 h-5 rounded border-2 cursor-pointer transition-all duration-200 ${
               todo.completed
                 ? "bg-brand border-brand text-white"
@@ -51,6 +52,7 @@ const DisplayTodoItem = ({
           onClick={onEdit}
           role="button"
           tabIndex={0}
+          aria-label={`할 일 편집: ${todo.title}`}
           onKeyDown={(e) => {
             if (e.key === "Enter") onEdit();
           }}

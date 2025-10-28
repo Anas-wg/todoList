@@ -54,6 +54,7 @@ const ConfirmationModal = ({
                 variant="z-primary"
                 size="S"
                 onClick={onConfirm}
+                aria-label="할 일 삭제 확인"
               >
                 삭제
               </BaseButton>
@@ -62,6 +63,7 @@ const ConfirmationModal = ({
                 variant="z-secondary"
                 size="S"
                 onClick={onClose}
+                aria-label="삭제 취소"
               >
                 취소
               </BaseButton>

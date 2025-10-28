@@ -85,10 +85,20 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
         options={PRIORITY_OPTIONS}
       />
       <div className="flex justify-end space-x-2 mt-2">
-        <BaseButton onClick={handleSave} variant="z-primary" size="S">
+        <BaseButton
+          onClick={handleSave}
+          variant="z-primary"
+          size="S"
+          aria-label="할 일 변경사항 저장"
+        >
           저장
         </BaseButton>
-        <BaseButton onClick={onCancel} variant="z-secondary" size="S">
+        <BaseButton
+          onClick={onCancel}
+          variant="z-secondary"
+          size="S"
+          aria-label="편집 취소"
+        >
           취소
         </BaseButton>
       </div>

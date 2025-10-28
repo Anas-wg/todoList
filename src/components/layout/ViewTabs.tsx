@@ -13,21 +13,21 @@ const ViewTabs = ({
 }: ViewTabsProps) => {
   const handleViewModeChange = (mode: "today" | "all") => {
     onViewModeChange(mode);
-    // 탭 변경 시 정렬도 함께 변경
-    if (mode === "today") {
-      onSortChange("dueDate");
-    } else {
-      onSortChange("priority");
-    }
+    onSortChange(mode === "today" ? "dueDate" : "priority");
   };
 
   const switchToToday = () => handleViewModeChange("today");
   const switchToAll = () => handleViewModeChange("all");
 
   return (
-    <div className="flex border-b border-border">
+    <nav
+      className="flex border-b border-border"
+      role="navigation"
+      aria-label="보기 모드 선택"
+    >
       <button
         onClick={switchToToday}
+        aria-label="today view"
         className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
           viewMode === "today"
             ? "text-brand border-b-2 border-brand bg-brand/5"
@@ -38,6 +38,7 @@ const ViewTabs = ({
       </button>
       <button
         onClick={switchToAll}
+        aria-label="all view"
         className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
           viewMode === "all"
             ? "text-brand border-b-2 border-brand bg-brand/5"
@@ -46,7 +47,7 @@ const ViewTabs = ({
       >
         모든 할 일
       </button>
-    </div>
+    </nav>
   );
 };
 

@@ -83,7 +83,12 @@ const DateInput = ({
       </button>
 
       {isCalendarOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 sm:absolute sm:inset-auto sm:mt-2 sm:p-3 sm:bg-white sm:rounded-lg sm:shadow-xl sm:border sm:border-border sm:w-[20rem]">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 sm:absolute sm:inset-auto sm:mt-2 sm:p-3 sm:bg-white sm:rounded-lg sm:shadow-xl sm:border sm:border-border sm:w-[20rem]"
+          role="dialog"
+          aria-modal="true"
+          aria-label="날짜 선택 달력"
+        >
           <div className="w-full max-w-sm bg-white rounded-lg shadow-xl border border-border p-3 sm:max-w-none sm:w-full">
             <Calendar
               value={parsedDate}
@@ -93,6 +98,7 @@ const DateInput = ({
             <button
               type="button"
               onClick={() => setIsCalendarOpen(false)}
+              aria-label="달력 닫기"
               className="w-full mt-3 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 sm:hidden"
             >
               닫기
