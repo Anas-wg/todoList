@@ -121,11 +121,7 @@ export default function Calendar({
     d.getMonth() === currentMonth.getMonth();
 
   return (
-    <div
-      className={`w-full overflow-hidden ${className}`}
-      role="application"
-      aria-label="날짜 선택 달력"
-    >
+    <div className={`w-full overflow-hidden ${className}`}>
       <div className="flex items-center justify-between mb-3">
         <button
           type="button"
@@ -189,10 +185,7 @@ export default function Calendar({
                       className={`${base} ${color}`}
                       onClick={() => handleSelect(day)}
                       disabled={isPast}
-                      aria-label={`${day.getFullYear()}년 ${
-                        day.getMonth() + 1
-                      }월 ${day.getDate()}일 선택`}
-                      aria-pressed={selected}
+                      aria-current={selected ? "date" : undefined}
                     >
                       {day.getDate()}
                     </button>

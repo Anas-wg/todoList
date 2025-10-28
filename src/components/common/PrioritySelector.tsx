@@ -50,7 +50,6 @@ const PrioritySelector = ({
             key={option.value}
             type="button"
             onClick={() => onChange(option.value)}
-            aria-label={`우선순위 ${option.label} 선택`}
             aria-pressed={isSelected}
             className={`${baseClasses} ${colorClasses}`}
           >

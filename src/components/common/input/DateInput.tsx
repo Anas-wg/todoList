@@ -87,7 +87,7 @@ const DateInput = ({
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 sm:absolute sm:inset-auto sm:mt-2 sm:p-3 sm:bg-white sm:rounded-lg sm:shadow-xl sm:border sm:border-border sm:w-[20rem]"
           role="dialog"
           aria-modal="true"
-          aria-label="날짜 선택 달력"
+          aria-label="달력"
         >
           <div className="w-full max-w-sm bg-white rounded-lg shadow-xl border border-border p-3 sm:max-w-none sm:w-full">
             <Calendar

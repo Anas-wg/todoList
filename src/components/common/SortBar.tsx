@@ -16,7 +16,6 @@ const SortBar = ({ sortBy, onChange }: SortBarProps) => {
         id="sortBy"
         value={sortBy}
         onChange={(e) => onChange(e.target.value as SortKey)}
-        aria-label="할 일 정렬 방식"
         className="px-2 py-1 rounded-md border border-border bg-white text-sm"
       >
         <option value="none">기본</option>

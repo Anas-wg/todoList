@@ -20,14 +20,10 @@ const ViewTabs = ({
   const switchToAll = () => handleViewModeChange("all");
 
   return (
-    <nav
-      className="flex border-b border-border"
-      role="navigation"
-      aria-label="보기 모드 선택"
-    >
+    <nav className="flex border-b border-border" aria-label="보기 모드">
       <button
         onClick={switchToToday}
-        aria-label="today view"
+        aria-current={viewMode === "today" ? "page" : undefined}
         className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
           viewMode === "today"
             ? "text-brand border-b-2 border-brand bg-brand/5"
@@ -38,7 +34,7 @@ const ViewTabs = ({
       </button>
       <button
         onClick={switchToAll}
-        aria-label="all view"
+        aria-current={viewMode === "all" ? "page" : undefined}
         className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
           viewMode === "all"
             ? "text-brand border-b-2 border-brand bg-brand/5"

@@ -36,31 +36,25 @@ const DayHeader = ({ date, onPrev, onNext }: DayHeaderProps) => {
   return (
     <nav
       className="flex items-center justify-between px-2 py-3"
-      role="navigation"
       aria-label="날짜 선택"
     >
       <button
         type="button"
-        aria-label="previous day"
+        aria-label="이전 날"
         className="text-gray-400 hover:text-gray-600 px-2 prev-btn"
         onClick={onPrev}
       >
         ◀
       </button>
       <div className="text-center date-text">
-        <div
-          className="text-sm tracking-wide font-semibold text-gray-500"
-          aria-label="weekday text"
-        >
+        <div className="text-sm tracking-wide font-semibold text-gray-500">
           {weekday[date.getDay()]}
         </div>
-        <div className="text-xs text-gray-400" aria-label="date text">
-          {formatLongDate(date)}
-        </div>
+        <div className="text-xs text-gray-400">{formatLongDate(date)}</div>
       </div>
       <button
         type="button"
-        aria-label="next day"
+        aria-label="다음 날"
         className="text-gray-400 hover:text-gray-600 px-2"
         onClick={onNext}
       >

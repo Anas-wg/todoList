@@ -70,7 +70,6 @@ const DisplayTodoItem = ({
         {todo.dueDate && (
           <button
             type="button"
-            aria-label="마감일 수정"
             className="text-xs text-gray-400 whitespace-nowrap flex-shrink-0"
             onClick={onEdit}
           >
@@ -84,7 +83,6 @@ const DisplayTodoItem = ({
         {/* 우선순위 */}
         <button
           type="button"
-          aria-label="우선순위 수정"
           className="cursor-pointer flex-shrink-0"
           onClick={onEdit}
         >
