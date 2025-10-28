@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import type { Todo } from "../../types/todo";
 import DisplayTodoItem from "./DisplayTodoItem";
 import EditTodoItem from "./EditTodoItem";
@@ -63,4 +63,4 @@ const TodoItem = ({ todo, onEditingChange }: TodoItemProps) => {
   );
 };
 
-export default TodoItem;
+export default memo(TodoItem);
