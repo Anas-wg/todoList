@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import type { Todo } from "../../types/todo";
 import BaseButton from "../common/BaseButton";
 import InputField from "../common/InputField";
+import { PRIORITY_OPTIONS } from "../../utils/constants";
 
 export type CreateTodoData = Omit<
   Todo,
@@ -59,9 +60,6 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
       onSubmit={handleFormSubmit}
       className="bg-white p-4 md:p-6 rounded-lg shadow-md mb-6 md:mb-8"
     >
-      <h3 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800">
-        새로운 할 일 추가
-      </h3>
       <InputField
         id="title"
         name="title"
@@ -89,12 +87,7 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
         value={formData.priority}
         onChange={handleInputChange}
         label="우선순위"
-        options={[
-          { value: "low", label: "Low", color: "gray" },
-          { value: "medium", label: "Medium", color: "sky" },
-          { value: "high", label: "High", color: "orange" },
-          { value: "urgent", label: "Urgent", color: "red" },
-        ]}
+        options={PRIORITY_OPTIONS}
       />
       <BaseButton type="submit" variant="z-primary" size="M">
         추가하기

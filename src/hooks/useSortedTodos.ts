@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import type { Todo } from "../types/todo";
+import { PRIORITY_ORDER } from "../utils/constants";
 
 export type SortKey = "none" | "dueDate" | "priority";
 
@@ -18,14 +19,10 @@ export function useSortedTodos(todos: Todo[], sortBy: SortKey) {
         return 0;
       });
     } else if (sortBy === "priority") {
-      const order: Record<string, number> = {
-        urgent: 0,
-        high: 1,
-        medium: 2,
-        low: 3,
-      };
       copy.sort(
-        (a, b) => (order[a.priority] ?? 99) - (order[b.priority] ?? 99)
+        (a, b) =>
+          (PRIORITY_ORDER[a.priority] ?? 99) -
+          (PRIORITY_ORDER[b.priority] ?? 99)
       );
     }
     return copy;

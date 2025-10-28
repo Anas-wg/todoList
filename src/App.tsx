@@ -28,8 +28,8 @@ function App() {
   return (
     <div className="min-h-screen bg-bg text-fg">
       <div className="container mx-auto px-4 py-4 md:py-8 max-w-2xl">
-        <header className="bg-brand p-4 md:p-6 rounded-lg shadow-md mb-4 md:mb-6 text-center">
-          <h1 className="text-2xl md:text-3xl font-bold text-fg">Todo List</h1>
+        <header className="mb-4 md:mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold">TodoList</h1>
         </header>
         <main className="space-y-4 md:space-y-6">
           <section className="overflow-hidden">

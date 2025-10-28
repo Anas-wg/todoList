@@ -3,6 +3,7 @@ import type { Todo } from "../../types/todo";
 import { useTodoStore } from "../../store/todoStore";
 import BaseButton from "../common/BaseButton";
 import InputField from "../common/InputField";
+import { PRIORITY_OPTIONS } from "../../utils/constants";
 
 interface EditTodoItemProps {
   todo: Todo;
@@ -81,12 +82,7 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
         value={editedPriority}
         onChange={handleInputChange}
         label="우선순위"
-        options={[
-          { value: "low", label: "Low", color: "gray" },
-          { value: "medium", label: "Medium", color: "blue" },
-          { value: "high", label: "High", color: "orange" },
-          { value: "urgent", label: "Urgent", color: "pink" },
-        ]}
+        options={PRIORITY_OPTIONS}
       />
       <div className="flex justify-end space-x-2 mt-2">
         <BaseButton onClick={handleSave} variant="z-primary" size="S">

@@ -1,3 +1,5 @@
+import { PRIORITY_COLOR_CLASSES, PRIORITY_LEVELS } from "../../utils/constants";
+
 interface PriorityOption {
   value: string;
   label: string;
@@ -18,33 +20,19 @@ const PrioritySelector = ({
   className = "",
 }: PrioritySelectorProps) => {
   const getPriorityColor = (priorityValue: string) => {
-    switch (priorityValue) {
-      case "urgent":
-        return "bg-priority-urgent hover:bg-pink-300 text-priority-urgent-text";
-      case "high":
-        return "bg-priority-high hover:bg-orange-300 text-priority-high-text";
-      case "medium":
-        return "bg-priority-med hover:bg-blue-300 text-priority-med-text";
-      case "low":
-        return "bg-priority-low hover:bg-gray-300 text-priority-low-text";
-      default:
-        return "bg-priority-low hover:bg-gray-300 text-priority-low-text";
-    }
+    const priorityKey = priorityValue as keyof typeof PRIORITY_COLOR_CLASSES;
+    return (
+      PRIORITY_COLOR_CLASSES[priorityKey]?.base ||
+      PRIORITY_COLOR_CLASSES[PRIORITY_LEVELS.LOW].base
+    );
   };
 
   const getSelectedColor = (priorityValue: string) => {
-    switch (priorityValue) {
-      case "urgent":
-        return "bg-pink-300 ring-2 ring-pink-200 text-priority-urgent-text";
-      case "high":
-        return "bg-orange-300 ring-2 ring-orange-200 text-priority-high-text";
-      case "medium":
-        return "bg-blue-300 ring-2 ring-blue-200 text-priority-med-text";
-      case "low":
-        return "bg-gray-300 ring-2 ring-gray-200 text-priority-low-text";
-      default:
-        return "bg-gray-300 ring-2 ring-gray-200 text-priority-low-text";
-    }
+    const priorityKey = priorityValue as keyof typeof PRIORITY_COLOR_CLASSES;
+    return (
+      PRIORITY_COLOR_CLASSES[priorityKey]?.selected ||
+      PRIORITY_COLOR_CLASSES[PRIORITY_LEVELS.LOW].selected
+    );
   };
 
   return (
