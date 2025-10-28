@@ -1,5 +1,3 @@
-import React from "react";
-
 interface ListFooterProps {
   total: number;
   onAddClick: () => void;
@@ -7,7 +5,7 @@ interface ListFooterProps {
 
 const ListFooter = ({ total, onAddClick }: ListFooterProps) => {
   return (
-    <div className="flex items-center justify-between px-2 py-3 text-xs text-gray-400">
+    <div className="flex items-center justify-between px-2 py-3 mt-4 md:mt-6 text-xs text-gray-400">
       <span>{total} TASKS</span>
       <button
         type="button"

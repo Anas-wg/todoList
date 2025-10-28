@@ -42,7 +42,8 @@ const TodoList = ({
         <h2 className="text-xl md:text-2xl font-semibold text-fg">My Todos</h2>
         <SortBar sortBy={sortBy} onChange={onSortChange} />
       </div>
-      <ul className="space-y-3 md:space-y-4">
+      {/* 모바일: 리스트, 태블릿: 2열 그리드, PC: 3열 그리드 */}
+      <ul className="space-y-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5 lg:gap-6 md:items-start md:auto-rows-auto">
         {filteredTodos.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
         ))}

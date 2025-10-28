@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import type { Todo } from "../../types/todo";
 import { useTodoStore } from "../../store/todoStore";
 import BaseButton from "../common/BaseButton";
@@ -55,7 +55,7 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
   };
 
   return (
-    <div className="flex flex-col space-y-4 w-full">
+    <div className="flex flex-col space-y-4 w-full md:py-2">
       <InputField
         id="edit-title"
         name="title"

@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-bg text-fg">
-      <div className="container mx-auto px-4 py-4 md:py-8 max-w-2xl">
+      <div className="container mx-auto px-4 py-4 md:py-8 max-w-7xl">
         {/* 최상단 Logo 영역 */}
         <AppHeader />
         <main className="space-y-4 md:space-y-6">

@@ -39,7 +39,11 @@ const TodoItem = ({ todo, onEditingChange }: TodoItemProps) => {
   };
 
   return (
-    <li className="py-3 border-b border-gray-100 last:border-b-0">
+    <li
+      className={`py-3 border-b border-gray-100 last:border-b-0 md:py-0 md:border-b-0 md:bg-white md:rounded-lg md:shadow-sm md:hover:shadow-md md:transition-shadow md:duration-200 md:p-4 md:border md:border-gray-100 md:flex md:flex-col ${
+        !isEditing ? "md:min-h-[140px]" : "md:h-auto"
+      }`}
+    >
       {isEditing ? (
         <EditTodoItem todo={todo} onCancel={handleCancelEdit} />
       ) : (
