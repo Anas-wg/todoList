@@ -114,7 +114,6 @@ function App() {
             />
           </section>
         </main>
-        {/* FAB */}
         <AddTodoModal
           isOpen={isAddOpen}
           onClose={() => setIsAddOpen(false)}

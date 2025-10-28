@@ -1,6 +1,7 @@
 import type { Todo } from "../../types/todo";
 import { useTodoStore } from "../../store/todoStore";
 import PriorityBadge from "../common/PriorityBadge";
+import CheckIcon from "../common/icons/CheckIcon";
 
 interface DisplayTodoItemProps {
   todo: Todo;
@@ -24,12 +25,25 @@ const DisplayTodoItem = ({
       {/* 한 줄 레이아웃: 체크박스 - 제목 - 마감일 - 삭제 버튼 */}
       <div className="flex items-center gap-3">
         {/* 체크박스 */}
-        <input
-          type="checkbox"
-          checked={todo.completed}
-          onChange={handleToggleComplete}
-          className="h-5 w-5 text-fg focus:ring-brand border-border rounded flex-shrink-0"
-        />
+        <div className="relative flex-shrink-0">
+          <input
+            type="checkbox"
+            checked={todo.completed}
+            onChange={handleToggleComplete}
+            className="sr-only"
+            id={`checkbox-${todo.id}`}
+          />
+          <label
+            htmlFor={`checkbox-${todo.id}`}
+            className={`flex items-center justify-center w-5 h-5 rounded border-2 cursor-pointer transition-all duration-200 ${
+              todo.completed
+                ? "bg-brand border-brand text-white"
+                : "bg-white border-gray-300 hover:border-brand hover:bg-gray-50"
+            }`}
+          >
+            {todo.completed && <CheckIcon />}
+          </label>
+        </div>
 
         {/* 제목 */}
         <div
