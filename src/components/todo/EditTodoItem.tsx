@@ -19,20 +19,23 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
   const [editedPriority, setEditedPriority] = useState(todo.priority);
   const [errors, setErrors] = useState<{ title?: string }>({});
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!editedTitle.trim()) {
       setErrors({ title: "제목은 필수 항목입니다." });
       return;
     }
 
-    updateTodo(todo.id, {
-      title: editedTitle,
-
-      dueDate: editedDueDate,
-      priority: editedPriority,
-    });
-    onCancel();
-    setErrors({});
+    try {
+      await updateTodo(todo.id, {
+        title: editedTitle,
+        dueDate: editedDueDate,
+        priority: editedPriority,
+      });
+      onCancel();
+      setErrors({});
+    } catch (error) {
+      console.error("Failed to update todo:", error);
+    }
   };
 
   const handleInputChange = (

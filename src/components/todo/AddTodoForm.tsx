@@ -10,7 +10,7 @@ export type CreateTodoData = Omit<
 >;
 
 interface AddTodoFormProps {
-  onCreateTodo: (newTodo: CreateTodoData) => void;
+  onCreateTodo: (newTodo: CreateTodoData) => void | Promise<void>;
 }
 
 const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
@@ -37,7 +37,7 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
     }
   };
 
-  const handleFormSubmit = (event: React.FormEvent) => {
+  const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     if (!formData.title.trim()) {
@@ -45,14 +45,18 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
       return;
     }
 
-    onCreateTodo(formData);
+    try {
+      await onCreateTodo(formData);
 
-    setFormData({
-      title: "",
-      dueDate: "",
-      priority: "medium",
-    });
-    setErrors({});
+      setFormData({
+        title: "",
+        dueDate: "",
+        priority: "medium",
+      });
+      setErrors({});
+    } catch (error) {
+      console.error("Failed to create todo:", error);
+    }
   };
 
   return (

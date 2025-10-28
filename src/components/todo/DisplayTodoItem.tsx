@@ -4,7 +4,7 @@ import PriorityBadge from "../common/PriorityBadge";
 import TodoTitle from "./TodoTitle";
 import DueDateDisplay from "./DueDateDisplay";
 import DeleteButton from "./DeleteButton";
-import TodoCheckbox from "./TodoCheckBox";
+import TodoCheckbox from "./TodoCheckbox";
 
 interface DisplayTodoItemProps {
   todo: Todo;
@@ -19,8 +19,12 @@ const DisplayTodoItem = ({
 }: DisplayTodoItemProps) => {
   const { updateTodo } = useTodoStore();
 
-  const handleToggleComplete = () => {
-    updateTodo(todo.id, { completed: !todo.completed });
+  const handleToggleComplete = async () => {
+    try {
+      await updateTodo(todo.id, { completed: !todo.completed });
+    } catch (error) {
+      console.error("Failed to toggle todo:", error);
+    }
   };
 
   return (

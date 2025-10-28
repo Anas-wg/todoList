@@ -31,9 +31,13 @@ const TodoItem = ({ todo, onEditingChange }: TodoItemProps) => {
     setShowDeleteModal(true);
   };
 
-  const handleConfirmDelete = () => {
-    deleteTodo(todo.id);
-    setShowDeleteModal(false);
+  const handleConfirmDelete = async () => {
+    try {
+      await deleteTodo(todo.id);
+      setShowDeleteModal(false);
+    } catch (error) {
+      console.error("Failed to delete todo:", error);
+    }
   };
 
   const handleCancelDelete = () => {

@@ -1,10 +1,9 @@
-import React from "react";
 import AddTodoForm, { CreateTodoData } from "../todo/AddTodoForm";
 
 interface AddTodoModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onCreateTodo: (data: CreateTodoData) => void;
+  onCreateTodo: (data: CreateTodoData) => Promise<void>;
 }
 
 const AddTodoModal = ({ isOpen, onClose, onCreateTodo }: AddTodoModalProps) => {
@@ -40,9 +39,13 @@ const AddTodoModal = ({ isOpen, onClose, onCreateTodo }: AddTodoModalProps) => {
           </button>
         </div>
         <AddTodoForm
-          onCreateTodo={(data) => {
-            onCreateTodo(data);
-            onClose();
+          onCreateTodo={async (data) => {
+            try {
+              await onCreateTodo(data);
+              onClose();
+            } catch (error) {
+              console.error("Failed to create todo:", error);
+            }
           }}
         />
       </div>
