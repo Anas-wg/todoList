@@ -6,16 +6,28 @@ import { useSortedTodos, SortKey } from "./hooks/useSortedTodos";
 import SortBar from "./components/common/SortBar";
 import DayHeader from "./components/layout/DayHeader";
 import ListFooter from "./components/common/ListFooter";
+import AppHeader from "./components/layout/AppHeader";
+import ViewTabs from "./components/layout/ViewTabs";
 
 function App() {
   const { todos, createTodo } = useTodoStore();
   const [isAddOpen, setIsAddOpen] = useState(false);
-  const [sortBy, setSortBy] = useState<SortKey>("dueDate"); // 오늘 탭 기본값: 마감일 순
-  const [, setIsEditingAny] = useState(false);
+  const [sortBy, setSortBy] = useState<SortKey>("dueDate");
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [viewMode, setViewMode] = useState<"today" | "all">("today");
 
   const sortedTodos = useSortedTodos(todos, sortBy);
+
+  // 뷰 모드 변경 핸들러
+  const handleViewModeChange = (mode: "today" | "all") => {
+    setViewMode(mode);
+    // 탭 변경 시 정렬도 함께 변경
+    if (mode === "today") {
+      setSortBy("dueDate");
+    } else {
+      setSortBy("priority");
+    }
+  };
 
   // 뷰 모드에 따라 필터링
   const filteredTodos = sortedTodos.filter((todo) => {
@@ -28,40 +40,14 @@ function App() {
   return (
     <div className="min-h-screen bg-bg text-fg">
       <div className="container mx-auto px-4 py-4 md:py-8 max-w-2xl">
-        <header className="mb-4 md:mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold">TodoList</h1>
-        </header>
+        {/* 최상단 Logo 영역 */}
+        <AppHeader />
         <main className="space-y-4 md:space-y-6">
           <section className="overflow-hidden">
-            {/* 탭 네비게이션 */}
-            <div className="flex border-b border-border">
-              <button
-                onClick={() => {
-                  setViewMode("today");
-                  setSortBy("dueDate"); // 오늘 탭: 마감일 순
-                }}
-                className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
-                  viewMode === "today"
-                    ? "text-brand border-b-2 border-brand bg-brand/5"
-                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
-                }`}
-              >
-                오늘
-              </button>
-              <button
-                onClick={() => {
-                  setViewMode("all");
-                  setSortBy("priority"); // 모든 할 일 탭: 우선순위 순
-                }}
-                className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
-                  viewMode === "all"
-                    ? "text-brand border-b-2 border-brand bg-brand/5"
-                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
-                }`}
-              >
-                모든 할 일
-              </button>
-            </div>
+            <ViewTabs
+              viewMode={viewMode}
+              onViewModeChange={handleViewModeChange}
+            />
 
             {/* 날짜 헤더는 오늘 보기일 때만 표시 */}
             {viewMode === "today" && (
@@ -100,11 +86,7 @@ function App() {
               </div>
               <ul className="space-y-3 md:space-y-4">
                 {filteredTodos.map((todo) => (
-                  <TodoItem
-                    key={todo.id}
-                    todo={todo}
-                    onEditingChange={setIsEditingAny}
-                  />
+                  <TodoItem key={todo.id} todo={todo} />
                 ))}
               </ul>
             </div>
