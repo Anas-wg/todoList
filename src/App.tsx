@@ -15,17 +15,6 @@ function App() {
   const [viewMode, setViewMode] = useState<"today" | "all">("today");
   const isTodayView = viewMode === "today";
 
-  // 뷰 모드 변경 핸들러
-  const handleViewModeChange = (mode: "today" | "all") => {
-    setViewMode(mode);
-    // 탭 변경 시 정렬도 함께 변경
-    if (mode === "today") {
-      setSortBy("dueDate");
-    } else {
-      setSortBy("priority");
-    }
-  };
-
   return (
     <div className="min-h-screen bg-bg text-fg">
       <div className="container mx-auto px-4 py-4 md:py-8 max-w-2xl">
@@ -35,7 +24,8 @@ function App() {
           <section className="overflow-hidden">
             <ViewTabs
               viewMode={viewMode}
-              onViewModeChange={handleViewModeChange}
+              onViewModeChange={setViewMode}
+              onSortChange={setSortBy}
             />
             {isTodayView && (
               <DayNavigator

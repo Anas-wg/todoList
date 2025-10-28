@@ -1,11 +1,28 @@
+import { SortKey } from "../../hooks/useSortedTodos";
+
 interface ViewTabsProps {
   viewMode: "today" | "all";
   onViewModeChange: (mode: "today" | "all") => void;
+  onSortChange: (sortBy: SortKey) => void;
 }
 
-const ViewTabs = ({ viewMode, onViewModeChange }: ViewTabsProps) => {
-  const switchToToday = () => onViewModeChange("today");
-  const switchToAll = () => onViewModeChange("all");
+const ViewTabs = ({
+  viewMode,
+  onViewModeChange,
+  onSortChange,
+}: ViewTabsProps) => {
+  const handleViewModeChange = (mode: "today" | "all") => {
+    onViewModeChange(mode);
+    // 탭 변경 시 정렬도 함께 변경
+    if (mode === "today") {
+      onSortChange("dueDate");
+    } else {
+      onSortChange("priority");
+    }
+  };
+
+  const switchToToday = () => handleViewModeChange("today");
+  const switchToAll = () => handleViewModeChange("all");
 
   return (
     <div className="flex border-b border-border">
