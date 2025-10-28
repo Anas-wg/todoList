@@ -1,4 +1,4 @@
-import React from "react";
+import { ChangeEvent } from "react";
 import TextInput from "./input/TextInput";
 import SelectInput from "./input/SelectInput";
 import DateInput from "./input/DateInput";
@@ -6,10 +6,10 @@ import DateInput from "./input/DateInput";
 interface InputFieldProps {
   id: string;
   name: string;
-  type?: "text" | "email" | "password" | "date" | "number" | "select";
+  type?: "text" | "date" | "select";
   value: string;
   onChange: (
-    event: React.ChangeEvent<
+    event: ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => void;
@@ -17,7 +17,6 @@ interface InputFieldProps {
   label?: string;
   error?: string;
   required?: boolean;
-  className?: string;
   options?: { value: string; label: string; color?: string }[];
 }
 
@@ -31,7 +30,6 @@ const InputField = ({
   label,
   error,
   required = false,
-  className = "",
   options,
 }: InputFieldProps) => {
   const renderInput = () => {
@@ -42,7 +40,6 @@ const InputField = ({
       onChange,
       placeholder,
       required,
-      className,
       error,
     };
 
@@ -60,7 +57,7 @@ const InputField = ({
   };
 
   return (
-    <div className={`mb-4 relative overflow-visible ${className}`}>
+    <div className="mb-4 relative overflow-visible">
       {label && (
         <label
           htmlFor={id}

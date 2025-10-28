@@ -10,7 +10,7 @@ const ListFooter = ({ total, onAddClick }: ListFooterProps) => {
       <button
         type="button"
         aria-label="새 할 일 추가"
-        className="text-gray-500 hover:text-gray-700"
+        className="text-brand font-bold hover:text-brand/80 transition-colors"
         onClick={onAddClick}
       >
         ADD NEW +
