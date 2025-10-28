@@ -26,7 +26,7 @@ const ViewTabs = ({
         aria-current={viewMode === "today" ? "page" : undefined}
         className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
           viewMode === "today"
-            ? "text-brand border-b-2 border-brand bg-brand/5"
+            ? "text-white bg-brand border-b-2 border-brand"
             : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
         }`}
       >
@@ -37,7 +37,7 @@ const ViewTabs = ({
         aria-current={viewMode === "all" ? "page" : undefined}
         className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
           viewMode === "all"
-            ? "text-brand border-b-2 border-brand bg-brand/5"
+            ? "text-white bg-brand border-b-2 border-brand"
             : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
         }`}
       >

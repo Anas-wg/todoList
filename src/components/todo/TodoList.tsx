@@ -45,7 +45,7 @@ const TodoList = ({
       {/* 모바일: 리스트, 태블릿: 2열 그리드, PC: 3열 그리드 */}
       <ul className="space-y-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5 lg:gap-6 md:items-start md:auto-rows-auto">
         {filteredTodos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
+          <TodoItem key={`${viewMode}-${todo.id}`} todo={todo} />
         ))}
       </ul>
       <ListFooter total={filteredTodos.length} onAddClick={onAddClick} />
