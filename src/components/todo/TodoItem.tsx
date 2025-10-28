@@ -1,9 +1,11 @@
-import { useState, memo } from "react";
+import { useState, memo, lazy, Suspense } from "react";
 import type { Todo } from "../../types/todo";
 import DisplayTodoItem from "./DisplayTodoItem";
 import EditTodoItem from "./EditTodoItem";
-import ConfirmationModal from "../modal/ConfirmationModal";
 import { useTodoStore } from "../../store/todoStore";
+
+// 모달 컴포넌트 lazy loading
+const ConfirmationModal = lazy(() => import("../modal/ConfirmationModal"));
 
 interface TodoItemProps {
   todo: Todo;
@@ -55,13 +57,15 @@ const TodoItem = ({ todo, onEditingChange }: TodoItemProps) => {
       )}
 
       {showDeleteModal && (
-        <ConfirmationModal
-          isOpen={showDeleteModal}
-          title="할 일 삭제"
-          message="정말로 이 할 일을 삭제하시겠습니까?"
-          onConfirm={handleConfirmDelete}
-          onClose={handleCancelDelete}
-        />
+        <Suspense fallback={null}>
+          <ConfirmationModal
+            isOpen={showDeleteModal}
+            title="할 일 삭제"
+            message="정말로 이 할 일을 삭제하시겠습니까?"
+            onConfirm={handleConfirmDelete}
+            onClose={handleCancelDelete}
+          />
+        </Suspense>
       )}
     </li>
   );

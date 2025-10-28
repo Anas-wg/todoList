@@ -1,11 +1,13 @@
-import { useState } from "react";
-import AddTodoModal from "./components/modal/AddTodoModal";
+import { useState, lazy, Suspense } from "react";
 import { useTodoStore } from "./store/todoStore";
 import { SortKey } from "./hooks/useSortedTodos";
 import DayNavigator from "./components/layout/DayNavigator";
 import AppHeader from "./components/layout/AppHeader";
 import ViewTabs from "./components/layout/ViewTabs";
 import TodoList from "./components/todo/TodoList";
+
+// 모달 컴포넌트 lazy loading
+const AddTodoModal = lazy(() => import("./components/modal/AddTodoModal"));
 
 function App() {
   const { todos, createTodo } = useTodoStore();
@@ -43,11 +45,15 @@ function App() {
             />
           </section>
         </main>
-        <AddTodoModal
-          isOpen={isAddOpen}
-          onClose={() => setIsAddOpen(false)}
-          onCreateTodo={createTodo}
-        />
+        {isAddOpen && (
+          <Suspense fallback={null}>
+            <AddTodoModal
+              isOpen={isAddOpen}
+              onClose={() => setIsAddOpen(false)}
+              onCreateTodo={createTodo}
+            />
+          </Suspense>
+        )}
       </div>
     </div>
   );
