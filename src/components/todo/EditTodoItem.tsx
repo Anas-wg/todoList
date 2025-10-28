@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import type { Todo } from "../model/todo";
-import { useTodoStore } from "../store/todoStore";
-import BaseButton from "./common/BaseButton";
-import InputField from "./common/InputField";
+import type { Todo } from "../../types/todo";
+import { useTodoStore } from "../../store/todoStore";
+import BaseButton from "../common/BaseButton";
+import InputField from "../common/InputField";
 
 interface EditTodoItemProps {
   todo: Todo;

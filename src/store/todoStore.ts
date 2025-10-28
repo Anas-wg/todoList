@@ -1,9 +1,9 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import type { Todo } from '../model/todo';
-import type { CreateTodoData } from '../components/AddTodoForm';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { Todo } from "../types/todo";
+import type { CreateTodoData } from "../components/todo/AddTodoForm";
 
-export type UpdateTodoData = Partial<Omit<Todo, 'id'>>;
+export type UpdateTodoData = Partial<Omit<Todo, "id">>;
 
 interface TodoStore {
   todos: Todo[];
@@ -34,14 +34,18 @@ export const useTodoStore = create<TodoStore>()(
       updateTodo: (id, updatedData) =>
         set((state) => ({
           todos: state.todos.map((todo) =>
-            todo.id === id ? { ...todo, ...updatedData, updatedAt: new Date().toISOString() } : todo
+            todo.id === id
+              ? { ...todo, ...updatedData, updatedAt: new Date().toISOString() }
+              : todo
           ),
         })),
       deleteTodo: (id) =>
-        set((state) => ({ todos: state.todos.filter((todo) => todo.id !== id) })),
+        set((state) => ({
+          todos: state.todos.filter((todo) => todo.id !== id),
+        })),
     }),
     {
-      name: 'todo-storage',
+      name: "todo-storage",
     }
   )
 );

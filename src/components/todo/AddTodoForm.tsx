@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-
-import BaseButton from "./common/BaseButton";
-import InputField from "./common/InputField";
-import { Todo } from "../types/todo";
+import type { Todo } from "../../types/todo";
+import BaseButton from "../common/BaseButton";
+import InputField from "../common/InputField";
 
 export type CreateTodoData = Omit<
   Todo,

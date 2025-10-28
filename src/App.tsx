@@ -1,10 +1,10 @@
 import { useState } from "react";
-import AddTodoModal from "./components/AddTodoModal";
+import AddTodoModal from "./components/modal/AddTodoModal";
 import { useTodoStore } from "./store/todoStore";
-import TodoItem from "./components/TodoItem";
+import TodoItem from "./components/todo/TodoItem";
 import { useSortedTodos, SortKey } from "./hooks/useSortedTodos";
 import SortBar from "./components/common/SortBar";
-import DayHeader from "./components/common/DayHeader";
+import DayHeader from "./components/layout/DayHeader";
 import ListFooter from "./components/common/ListFooter";
 
 function App() {

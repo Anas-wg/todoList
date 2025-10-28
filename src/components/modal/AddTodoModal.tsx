@@ -1,5 +1,5 @@
 import React from "react";
-import AddTodoForm, { CreateTodoData } from "./AddTodoForm";
+import AddTodoForm, { CreateTodoData } from "../todo/AddTodoForm";
 
 interface AddTodoModalProps {
   isOpen: boolean;

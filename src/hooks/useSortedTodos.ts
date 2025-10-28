@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { Todo } from "../model/todo";
+import type { Todo } from "../types/todo";
 
 export type SortKey = "none" | "dueDate" | "priority";
 

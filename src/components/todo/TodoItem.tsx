@@ -1,9 +1,9 @@
 import { useState } from "react";
-import type { Todo } from "../model/todo";
+import type { Todo } from "../../types/todo";
 import DisplayTodoItem from "./DisplayTodoItem";
 import EditTodoItem from "./EditTodoItem";
-import ConfirmationModal from "./ConfirmationModal";
-import { useTodoStore } from "../store/todoStore";
+import ConfirmationModal from "../modal/ConfirmationModal";
+import { useTodoStore } from "../../store/todoStore";
 
 interface TodoItemProps {
   todo: Todo;

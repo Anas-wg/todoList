@@ -1,6 +1,6 @@
-import type { Todo } from "../model/todo";
-import { useTodoStore } from "../store/todoStore";
-import PriorityBadge from "./common/PriorityBadge";
+import type { Todo } from "../../types/todo";
+import { useTodoStore } from "../../store/todoStore";
+import PriorityBadge from "../common/PriorityBadge";
 
 interface DisplayTodoItemProps {
   todo: Todo;
