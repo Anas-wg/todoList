@@ -126,18 +126,18 @@ export default function Calendar({
         <button
           type="button"
           onClick={handlePrev}
-          className="px-2 py-1 rounded-md text-sm bg-gray-100 text-gray-700 hover:bg-gray-200"
+          className="px-3 py-2 rounded-md text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300 touch-manipulation"
           aria-label="이전 달"
         >
           &lt;
         </button>
-        <div className="text-base font-semibold text-gray-900">
+        <div className="text-base font-semibold text-gray-900 px-2">
           {currentMonth.getFullYear()}년 {currentMonth.getMonth() + 1}월
         </div>
         <button
           type="button"
           onClick={handleNext}
-          className="px-2 py-1 rounded-md text-sm bg-gray-100 text-gray-700 hover:bg-gray-200"
+          className="px-3 py-2 rounded-md text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300 touch-manipulation"
           aria-label="다음 달"
         >
           &gt;
@@ -150,7 +150,7 @@ export default function Calendar({
             {daysOfWeek.map((d) => (
               <th
                 key={d}
-                className="p-2 text-xs font-medium text-gray-500 text-center"
+                className="p-1 sm:p-2 text-xs font-medium text-gray-500 text-center"
               >
                 {d}
               </th>
@@ -167,7 +167,7 @@ export default function Calendar({
                 const isPast = startOfDay(day) < today && !selected;
 
                 const base =
-                  "w-full py-2 inline-flex items-center justify-center rounded-full cursor-pointer select-none";
+                  "w-full py-2 sm:py-3 inline-flex items-center justify-center rounded-full cursor-pointer select-none touch-manipulation min-h-[2.5rem] sm:min-h-[2.75rem]";
                 const color = selected
                   ? "bg-brand text-fg"
                   : isPast
@@ -176,10 +176,10 @@ export default function Calendar({
                   ? "text-transparent"
                   : muted
                   ? "text-gray-400"
-                  : "text-gray-900 hover:bg-gray-100";
+                  : "text-gray-900 hover:bg-gray-100 active:bg-gray-200";
 
                 return (
-                  <td key={j} className="p-1 text-center">
+                  <td key={j} className="p-0.5 sm:p-1 text-center">
                     <button
                       type="button"
                       className={`${base} ${color}`}

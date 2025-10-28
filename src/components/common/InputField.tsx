@@ -160,33 +160,42 @@ const InputField = ({
             </svg>
           </button>
           {isCalendarOpen && (
-            <div className="absolute z-50 mt-2 p-3 bg-white rounded-lg shadow-xl border border-border w-[18rem] sm:w-[20rem]">
-              <Calendar
-                value={parsedDate}
-                onChange={(day) => {
-                  if (!day) {
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 sm:absolute sm:inset-auto sm:mt-2 sm:p-3 sm:bg-white sm:rounded-lg sm:shadow-xl sm:border sm:border-border sm:w-[20rem]">
+              <div className="w-full max-w-sm bg-white rounded-lg shadow-xl border border-border p-3 sm:max-w-none sm:w-full">
+                <Calendar
+                  value={parsedDate}
+                  onChange={(day) => {
+                    if (!day) {
+                      const syntheticEvent = {
+                        target: { name, value: "" },
+                      } as unknown as React.ChangeEvent<HTMLInputElement>;
+                      onChange(syntheticEvent);
+                      setIsCalendarOpen(false);
+                      return;
+                    }
+                    const year = day.getFullYear();
+                    const monthString = String(day.getMonth() + 1).padStart(
+                      2,
+                      "0"
+                    );
+                    const dayString = String(day.getDate()).padStart(2, "0");
+                    const nextValue = `${year}-${monthString}-${dayString}`;
                     const syntheticEvent = {
-                      target: { name, value: "" },
+                      target: { name, value: nextValue },
                     } as unknown as React.ChangeEvent<HTMLInputElement>;
                     onChange(syntheticEvent);
                     setIsCalendarOpen(false);
-                    return;
-                  }
-                  const year = day.getFullYear();
-                  const monthString = String(day.getMonth() + 1).padStart(
-                    2,
-                    "0"
-                  );
-                  const dayString = String(day.getDate()).padStart(2, "0");
-                  const nextValue = `${year}-${monthString}-${dayString}`;
-                  const syntheticEvent = {
-                    target: { name, value: nextValue },
-                  } as unknown as React.ChangeEvent<HTMLInputElement>;
-                  onChange(syntheticEvent);
-                  setIsCalendarOpen(false);
-                }}
-                showAdjacentMonths
-              />
+                  }}
+                  showAdjacentMonths
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsCalendarOpen(false)}
+                  className="w-full mt-3 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 sm:hidden"
+                >
+                  닫기
+                </button>
+              </div>
             </div>
           )}
         </div>
