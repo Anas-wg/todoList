@@ -4,7 +4,7 @@ import { useTodoStore } from "./store/todoStore";
 import TodoItem from "./components/todo/TodoItem";
 import { useSortedTodos, SortKey } from "./hooks/useSortedTodos";
 import SortBar from "./components/common/SortBar";
-import DayHeader from "./components/layout/DayHeader";
+import DayNavigator from "./components/layout/DayNavigator";
 import ListFooter from "./components/common/ListFooter";
 import AppHeader from "./components/layout/AppHeader";
 import ViewTabs from "./components/layout/ViewTabs";
@@ -48,29 +48,10 @@ function App() {
               viewMode={viewMode}
               onViewModeChange={handleViewModeChange}
             />
-
-            {/* 날짜 헤더는 오늘 보기일 때만 표시 */}
             {viewMode === "today" && (
-              <DayHeader
+              <DayNavigator
                 date={selectedDate}
-                onPrev={() =>
-                  setSelectedDate(
-                    new Date(
-                      selectedDate.getFullYear(),
-                      selectedDate.getMonth(),
-                      selectedDate.getDate() - 1
-                    )
-                  )
-                }
-                onNext={() =>
-                  setSelectedDate(
-                    new Date(
-                      selectedDate.getFullYear(),
-                      selectedDate.getMonth(),
-                      selectedDate.getDate() + 1
-                    )
-                  )
-                }
+                onDateChange={setSelectedDate}
               />
             )}
             <div className="px-4 md:px-6 pb-2">

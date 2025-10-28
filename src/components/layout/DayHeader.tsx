@@ -1,5 +1,3 @@
-import React from "react";
-
 interface DayHeaderProps {
   date: Date;
   onPrev: () => void;
