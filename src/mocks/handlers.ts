@@ -5,6 +5,66 @@ import type { CreateTodoData } from "../components/todo/AddTodoForm";
 // localStorage 동기화 헬퍼 함수
 const STORAGE_KEY = "msw-todo-storage";
 
+// 초기 샘플 데이터
+const getInitialTodos = (): Todo[] => {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const nextWeek = new Date(today);
+  nextWeek.setDate(nextWeek.getDate() + 7);
+
+  return [
+    {
+      id: crypto.randomUUID(),
+      title: "MSW 환경 구축하기",
+      description: "Mock Service Worker로 API 모킹 설정",
+      completed: true,
+      priority: "high",
+      dueDate: today.toISOString().split("T")[0],
+      createdAt: new Date(today.getTime() - 3600000).toISOString(),
+      updatedAt: new Date().toISOString(),
+      subtasks: [],
+      parentId: null,
+    },
+    {
+      id: crypto.randomUUID(),
+      title: "React Query 학습하기",
+      description: "서버 상태 관리 라이브러리 공부",
+      completed: false,
+      priority: "medium",
+      dueDate: tomorrow.toISOString().split("T")[0],
+      createdAt: new Date(today.getTime() - 7200000).toISOString(),
+      updatedAt: new Date(today.getTime() - 7200000).toISOString(),
+      subtasks: [],
+      parentId: null,
+    },
+    {
+      id: crypto.randomUUID(),
+      title: "TypeScript 고급 타입 마스터하기",
+      description: "제네릭, 유틸리티 타입, 조건부 타입 등",
+      completed: false,
+      priority: "urgent",
+      dueDate: today.toISOString().split("T")[0],
+      createdAt: new Date(today.getTime() - 10800000).toISOString(),
+      updatedAt: new Date(today.getTime() - 10800000).toISOString(),
+      subtasks: [],
+      parentId: null,
+    },
+    {
+      id: crypto.randomUUID(),
+      title: "프로젝트 배포하기",
+      description: "Vercel 또는 Netlify에 배포",
+      completed: false,
+      priority: "low",
+      dueDate: nextWeek.toISOString().split("T")[0],
+      createdAt: new Date(today.getTime() - 14400000).toISOString(),
+      updatedAt: new Date(today.getTime() - 14400000).toISOString(),
+      subtasks: [],
+      parentId: null,
+    },
+  ];
+};
+
 const loadTodosFromStorage = (): Todo[] => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -14,7 +74,10 @@ const loadTodosFromStorage = (): Todo[] => {
   } catch (error) {
     console.error("Failed to load todos from localStorage:", error);
   }
-  return [];
+  // localStorage가 비어있으면 초기 샘플 데이터 반환
+  const initialTodos = getInitialTodos();
+  saveTodosToStorage(initialTodos); // 바로 저장
+  return initialTodos;
 };
 
 const saveTodosToStorage = (todos: Todo[]) => {
@@ -42,6 +105,7 @@ export const handlers = [
     await delay(200);
     const { id } = params;
     const todo = todos.find((t) => t.id === id);
+    console.log("todo", todo);
 
     if (!todo) {
       return new HttpResponse(null, { status: 404 });
