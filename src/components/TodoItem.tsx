@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import type { Todo } from "../model/todo";
 import DisplayTodoItem from "./DisplayTodoItem";
 import EditTodoItem from "./EditTodoItem";
@@ -7,19 +7,22 @@ import { useTodoStore } from "../store/todoStore";
 
 interface TodoItemProps {
   todo: Todo;
+  onEditingChange?: (editing: boolean) => void;
 }
 
-const TodoItem = ({ todo }: TodoItemProps) => {
+const TodoItem = ({ todo, onEditingChange }: TodoItemProps) => {
   const { deleteTodo } = useTodoStore();
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleEdit = () => {
     setIsEditing(true);
+    onEditingChange?.(true);
   };
 
   const handleCancelEdit = () => {
     setIsEditing(false);
+    onEditingChange?.(false);
   };
 
   const handleDeleteRequest = () => {
@@ -36,11 +39,15 @@ const TodoItem = ({ todo }: TodoItemProps) => {
   };
 
   return (
-    <li className="bg-primary-light p-4 rounded-lg shadow-sm flex items-center justify-between">
+    <li className="bg-card p-4 rounded-lg shadow-sm flex items-center justify-between relative">
       {isEditing ? (
         <EditTodoItem todo={todo} onCancel={handleCancelEdit} />
       ) : (
-        <DisplayTodoItem todo={todo} onEdit={handleEdit} onDeleteRequest={handleDeleteRequest} />
+        <DisplayTodoItem
+          todo={todo}
+          onEdit={handleEdit}
+          onDeleteRequest={handleDeleteRequest}
+        />
       )}
 
       {showDeleteModal && (

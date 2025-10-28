@@ -1,29 +1,87 @@
-import AddTodoForm from "./components/AddTodoForm";
+import { useState } from "react";
+import AddTodoModal from "./components/AddTodoModal";
 import { useTodoStore } from "./store/todoStore";
 import TodoItem from "./components/TodoItem";
+import { useSortedTodos, SortKey } from "./hooks/useSortedTodos";
+import SortBar from "./components/common/SortBar";
+import DayHeader from "./components/common/DayHeader";
+import ListFooter from "./components/common/ListFooter";
 
 function App() {
   const { todos, createTodo } = useTodoStore();
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [sortBy, setSortBy] = useState<SortKey>("none");
+  // Editing state kept for potential future use; currently not used in FAB-less layout
+  const [, setIsEditingAny] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const sortedTodos = useSortedTodos(todos, sortBy);
+
+  // 마감일이 없는 할 일은 항상 표시, 있는 경우 선택된 날짜와 동일한 날짜만 표시
+  const filteredTodos = sortedTodos.filter((todo) => {
+    if (!todo.dueDate) return true; // 마감일이 없으면 항상 표시
+    const todoDate = new Date(todo.dueDate);
+    return todoDate.toDateString() === selectedDate.toDateString();
+  });
 
   return (
-    <div className="min-h-screen bg-primary-lightest text-gray-800 flex flex-col items-center py-8">
-      <header className="w-full max-w-2xl bg-primary-DEFAULT p-4 rounded-lg shadow-md mb-8 text-center">
-        <h1 className="text-3xl font-bold text-white">Todo List</h1>
-      </header>
-      <main className="w-full max-w-2xl">
-        <AddTodoForm onCreateTodo={createTodo} />
-        <section className="bg-white p-6 rounded-lg shadow-md mt-8">
-          <h2 className="text-2xl font-semibold mb-4 text-primary-dark">My Todos</h2>
-          <ul className="space-y-4">
-            {todos.map((todo) => (
-              <TodoItem
-                key={todo.id}
-                todo={todo}
-              />
-            ))}
-          </ul>
-        </section>
-      </main>
+    <div className="min-h-screen bg-bg text-fg">
+      <div className="container mx-auto px-4 py-4 md:py-8 max-w-2xl">
+        <header className="bg-brand p-4 md:p-6 rounded-lg shadow-md mb-4 md:mb-6 text-center">
+          <h1 className="text-2xl md:text-3xl font-bold text-fg">Todo List</h1>
+        </header>
+        <main className="space-y-4 md:space-y-6">
+          <section className="bg-card p-0 md:p-0 rounded-lg shadow-md overflow-hidden">
+            <DayHeader
+              date={selectedDate}
+              onPrev={() =>
+                setSelectedDate(
+                  new Date(
+                    selectedDate.getFullYear(),
+                    selectedDate.getMonth(),
+                    selectedDate.getDate() - 1
+                  )
+                )
+              }
+              onNext={() =>
+                setSelectedDate(
+                  new Date(
+                    selectedDate.getFullYear(),
+                    selectedDate.getMonth(),
+                    selectedDate.getDate() + 1
+                  )
+                )
+              }
+            />
+            <div className="px-4 md:px-6 pb-2">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl md:text-2xl font-semibold text-fg">
+                  My Todos
+                </h2>
+                <SortBar sortBy={sortBy} onChange={setSortBy} />
+              </div>
+              <ul className="space-y-3 md:space-y-4">
+                {filteredTodos.map((todo) => (
+                  <TodoItem
+                    key={todo.id}
+                    todo={todo}
+                    onEditingChange={setIsEditingAny}
+                  />
+                ))}
+              </ul>
+            </div>
+            <ListFooter
+              total={filteredTodos.length}
+              onAddClick={() => setIsAddOpen(true)}
+            />
+          </section>
+        </main>
+        {/* FAB */}
+        <AddTodoModal
+          isOpen={isAddOpen}
+          onClose={() => setIsAddOpen(false)}
+          onCreateTodo={createTodo}
+        />
+      </div>
     </div>
   );
 }

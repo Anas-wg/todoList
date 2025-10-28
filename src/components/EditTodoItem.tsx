@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import type { Todo } from "../model/todo";
 import { useTodoStore } from "../store/todoStore";
+import BaseButton from "./common/BaseButton";
+import InputField from "./common/InputField";
 
 interface EditTodoItemProps {
   todo: Todo;
@@ -10,9 +12,6 @@ interface EditTodoItemProps {
 const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
   const { updateTodo } = useTodoStore();
   const [editedTitle, setEditedTitle] = useState(todo.title);
-  const [editedDescription, setEditedDescription] = useState(
-    todo.description || ""
-  );
   const [editedDueDate, setEditedDueDate] = useState(
     todo.dueDate ? todo.dueDate.toString().split("T")[0] : ""
   );
@@ -27,7 +26,7 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
 
     updateTodo(todo.id, {
       title: editedTitle,
-      description: editedDescription,
+
       dueDate: editedDueDate,
       priority: editedPriority,
     });
@@ -35,50 +34,67 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
     setErrors({});
   };
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedTitle(e.target.value);
-    if (e.target.value.trim()) {
-      setErrors((prevErrors) => ({ ...prevErrors, title: undefined }));
+  const handleInputChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = event.target;
+
+    if (name === "title") {
+      setEditedTitle(value);
+      if (value.trim()) {
+        setErrors((prevErrors) => ({ ...prevErrors, title: undefined }));
+      }
+    } else if (name === "dueDate") {
+      setEditedDueDate(value);
+    } else if (name === "priority") {
+      setEditedPriority(value as Todo["priority"]);
     }
   };
 
   return (
-    <div className="flex flex-col space-y-2 w-full">
-      <input
+    <div className="flex flex-col space-y-4 w-full">
+      <InputField
+        id="edit-title"
+        name="title"
         type="text"
         value={editedTitle}
-        onChange={handleTitleChange}
-        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-DEFAULT focus:ring focus:ring-primary-DEFAULT focus:ring-opacity-50"
+        onChange={handleInputChange}
+        label="제목"
+        error={errors.title}
+        required
       />
-      {errors.title && <p className="text-sm text-red-500 mt-1">{errors.title}</p>}
-      <textarea
-        value={editedDescription}
-        onChange={(e) => setEditedDescription(e.target.value)}
-        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-DEFAULT focus:ring focus:ring-primary-DEFAULT focus:ring-opacity-50"
-      />
-      <input
+
+      <InputField
+        id="edit-dueDate"
+        name="dueDate"
         type="date"
         value={editedDueDate}
-        onChange={(e) => setEditedDueDate(e.target.value)}
-        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-DEFAULT focus:ring focus:ring-primary-DEFAULT focus:ring-opacity-50"
+        onChange={handleInputChange}
+        label="마감일"
       />
-      <select
+      <InputField
+        id="edit-priority"
+        name="priority"
+        type={"select" as const}
         value={editedPriority}
-        onChange={(e) => setEditedPriority(e.target.value as Todo["priority"])}
-        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-DEFAULT focus:ring focus:ring-primary-DEFAULT focus:ring-opacity-50"
-      >
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-        <option value="urgent">Urgent</option>
-      </select>
+        onChange={handleInputChange}
+        label="우선순위"
+        options={[
+          { value: "low", label: "Low", color: "gray" },
+          { value: "medium", label: "Medium", color: "blue" },
+          { value: "high", label: "High", color: "orange" },
+          { value: "urgent", label: "Urgent", color: "pink" },
+        ]}
+      />
       <div className="flex justify-end space-x-2 mt-2">
-        <button onClick={handleSave} className="px-3 py-1 rounded-md text-sm font-medium text-white bg-primary-dark hover:bg-primary-DEFAULT">
+        <BaseButton onClick={handleSave} variant="z-primary" size="S">
           저장
-        </button>
-        <button onClick={onCancel} className="px-3 py-1 rounded-md text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300">
+        </BaseButton>
+        <BaseButton onClick={onCancel} variant="z-secondary" size="S">
           취소
-        </button>
+        </BaseButton>
       </div>
     </div>
   );

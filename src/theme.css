@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand (밝은 오렌지) */
+  --color-brand: #fca54c;
+
+  /* Base surfaces */
+  --color-bg: #ffffff;
+  --color-fg: #1a0f08;
+  --color-card: #ffffff;
+  --color-border: #e5e7eb;
+
+  /* Priority levels */
+  --color-priority-urgent: #fce7f3; /* 파스텔 핑크 */
+  --color-priority-urgent-text: #be185d; /* 진한 핑크 */
+  --color-priority-high: #fed7aa; /* 파스텔 오렌지 */
+  --color-priority-high-text: #ea580c; /* 진한 오렌지 */
+  --color-priority-med: #dbeafe; /* 파스텔 블루 */
+  --color-priority-med-text: #2563eb; /* 진한 블루 */
+  --color-priority-low: #f3f4f6; /* 파스텔 그레이 */
+  --color-priority-low-text: #6b7280; /* 진한 그레이 */
+
+  /* Task states */
+  --color-state-todo: #fff3e0; /* 기본 배경 */
+  --color-state-progress: #f57c00; /* 진행중 – 진한 오렌지 */
+  --color-state-blocked: #d84315; /* 막힘 – 붉은 오렌지 */
+  --color-state-completed: #ffecb3; /* 완료 – 따뜻한 노랑빛 */
+  --color-state-overdue: #e64a19; /* 마감초과 – 강렬한 붉은 주황 */
+  --color-state-duesoon: #ffa726; /* 임박 – 선명한 오렌지 */
+
+  /* Subtle fills */
+  --color-fill-muted: #fff8ef;
+}

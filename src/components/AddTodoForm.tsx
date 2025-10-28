@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import type { Todo } from "../model/todo";
+import BaseButton from "./common/BaseButton";
+import InputField from "./common/InputField";
 
 export type CreateTodoData = Omit<
   Todo,
@@ -13,7 +15,6 @@ interface AddTodoFormProps {
 const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
   const [formData, setFormData] = useState<CreateTodoData>({
     title: "",
-    description: "",
     dueDate: "",
     priority: "medium",
   });
@@ -39,7 +40,7 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
     event.preventDefault();
 
     if (!formData.title.trim()) {
-      setErrors({ title: "제목은 필수 항목입니다." });
+      setErrors({ title: "제목을 입력해주세요" });
       return;
     }
 
@@ -47,7 +48,6 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
 
     setFormData({
       title: "",
-      description: "",
       dueDate: "",
       priority: "medium",
     });
@@ -55,61 +55,50 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit} className="bg-white p-6 rounded-lg shadow-md mb-8">
-      <h3 className="text-2xl font-semibold mb-4 text-primary-dark">새로운 할 일 추가</h3>
-      <div className="mb-4">
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">제목</label>
-        <input
-          id="title"
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleInputChange}
-          placeholder="예: 리액트 공부하기"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-DEFAULT focus:ring focus:ring-primary-DEFAULT focus:ring-opacity-50"
-        />
-        {errors.title && <p className="text-sm text-red-500 mt-1">{errors.title}</p>}
-      </div>
-      <div className="mb-4">
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">내용</label>
-        <textarea
-          id="description"
-          name="description"
-          value={formData.description || ""}
-          onChange={handleInputChange}
-          placeholder="예: 5장까지 읽고 예제 실습"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-DEFAULT focus:ring focus:ring-primary-DEFAULT focus:ring-opacity-50"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700 mb-1">마감일</label>
-        <input
-          id="dueDate"
-          type="date"
-          name="dueDate"
-          value={formData.dueDate}
-          onChange={handleInputChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-DEFAULT focus:ring focus:ring-primary-DEFAULT focus:ring-opacity-50"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-1">우선순위</label>
-        <select
-          id="priority"
-          name="priority"
-          value={formData.priority}
-          onChange={handleInputChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-DEFAULT focus:ring focus:ring-primary-DEFAULT focus:ring-opacity-50"
-        >
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-          <option value="urgent">Urgent</option>
-        </select>
-      </div>
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+    <form
+      onSubmit={handleFormSubmit}
+      className="bg-white p-4 md:p-6 rounded-lg shadow-md mb-6 md:mb-8"
+    >
+      <h3 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800">
+        새로운 할 일 추가
+      </h3>
+      <InputField
+        id="title"
+        name="title"
+        type="text"
+        value={formData.title}
+        onChange={handleInputChange}
+        placeholder="예: 리액트 공부하기"
+        label="제목"
+        error={errors.title}
+        required
+      />
+
+      <InputField
+        id="dueDate"
+        name="dueDate"
+        type="date"
+        value={formData.dueDate}
+        onChange={handleInputChange}
+        label="마감일"
+      />
+      <InputField
+        id="priority"
+        name="priority"
+        type={"select" as const}
+        value={formData.priority}
+        onChange={handleInputChange}
+        label="우선순위"
+        options={[
+          { value: "low", label: "Low", color: "gray" },
+          { value: "medium", label: "Medium", color: "sky" },
+          { value: "high", label: "High", color: "orange" },
+          { value: "urgent", label: "Urgent", color: "red" },
+        ]}
+      />
+      <BaseButton type="submit" variant="z-primary" size="M">
         추가하기
-      </button>
+      </BaseButton>
     </form>
   );
 };
