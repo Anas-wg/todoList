@@ -11,7 +11,7 @@ interface EditTodoItemProps {
 }
 // 할 일 수정 폼 컴포넌트
 const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
-  const { updateTodo } = useTodoStore();
+  const updateTodo = useTodoStore((state) => state.updateTodo);
   const [editedTitle, setEditedTitle] = useState(todo.title);
   const [editedDescription, setEditedDescription] = useState(
     todo.description || ""

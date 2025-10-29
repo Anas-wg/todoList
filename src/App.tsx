@@ -1,5 +1,6 @@
 import { useState, lazy, Suspense } from "react";
 import { useTodoStore } from "./store/todoStore";
+import { useShallow } from "zustand/react/shallow";
 import { SortKey } from "./hooks/useSortedTodos";
 import DayNavigator from "./components/layout/DayNavigator";
 import AppHeader from "./components/layout/AppHeader";
@@ -10,7 +11,12 @@ import TodoList from "./components/todo/TodoList";
 const AddTodoModal = lazy(() => import("./components/modal/AddTodoModal"));
 
 function App() {
-  const { todos, createTodo } = useTodoStore();
+  const { todos, createTodo } = useTodoStore(
+    useShallow((state) => ({
+      todos: state.todos,
+      createTodo: state.createTodo,
+    }))
+  );
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [sortBy, setSortBy] = useState<SortKey>("dueDate");
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());

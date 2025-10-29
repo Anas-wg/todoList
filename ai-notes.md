@@ -55,8 +55,7 @@
 ### 같은 TodoItem을 Mode에 따라 다른 key로 저장
 
 - 수정 전
-
-  같은 할 일이지만 key가 달라 오늘 탭 과 모든 할 일 탭에서 다른 컴포넌트로 처리
+  - 같은 할 일이지만 key가 달라 오늘 탭 과 모든 할 일 탭에서 다른 컴포넌트로 처리
 
 ```js
 <ul>
@@ -67,9 +66,8 @@
 ```
 
 - 수정 후
-
-  key를 동일하게 만들어 불필요한 컴포넌트 언마운트 방지
-  또한 수정모드 진입 후 탭 변경해도 해당 TodoITem은 수정모드 작업 유지
+  - key를 동일하게 만들어 불필요한 컴포넌트 언마운트 방지
+  - 수정모드 진입 후 탭 변경해도 해당 TodoITem은 수정모드 작업 유지
 
 ```js
 <ul>
@@ -82,7 +80,7 @@
 ### 흩어진 로직을 관련 파일로 집중
 
 - 수정 전
-  탭 변경시 정렬 기준을 변경하는 로직이 ViewTabs가 아닌 상위 컴포넌트인 App.tsx에 위치
+  - 탭 변경시 정렬 기준을 변경하는 로직이 ViewTabs가 아닌 상위 컴포넌트인 App.tsx에 위치
 
 ```js
 // App.tsx
@@ -97,7 +95,7 @@ const handleViewModeChange = (mode: "today" | "all") => {
 ```
 
 - 수정 후
-  ViewTabs 컴포넌트에 탭 변경 관련 로직을 모아 관련 로직을 한 곳에 집중
+  - ViewTabs 컴포넌트에 탭 변경 관련 로직을 모아 관련 로직을 한 곳에 집중
 
 ```js
 const handleViewModeChange = (mode: "today" | "all") => {
@@ -108,4 +106,45 @@ const handleViewModeChange = (mode: "today" | "all") => {
     onSortChange("priority");
   }
 };
+```
+
+### Store 활용시 리렌더링 방지
+
+- 수정 전
+  - 스토어 전체를 구독하여 불필요한 리렌더링 발생 가능
+
+```tsx
+// App.tsx
+const { todos, createTodo } = useTodoStore();
+
+// TodoItem.tsx
+const { deleteTodo } = useTodoStore();
+
+// DisplayTodoItem.tsx
+const { updateTodo } = useTodoStore();
+
+// EditTodoItem.tsx
+const { updateTodo } = useTodoStore();
+```
+
+- 수정 후
+  - 스토어의 다른 필드가 변경되어도 해당 컴포넌트는 구독하지 않는 필드 변경으로 인한 리렌더링 방지
+  - `useShallow`를 통해 여러 값을 동시에 선택할 때 얕은 비교로 불필요한 리렌더링 방지
+  - 액션 함수들은 참조가 변경되지 않으므로 단일 셀렉터로 최적화
+
+```tsx
+import { useShallow } from "zustand/react/shallow";
+
+const { todos, createTodo } = useTodoStore(
+  useShallow((state) => ({
+    todos: state.todos,
+    createTodo: state.createTodo,
+  }))
+);
+
+const deleteTodo = useTodoStore((state) => state.deleteTodo);
+
+const updateTodo = useTodoStore((state) => state.updateTodo);
+
+const updateTodo = useTodoStore((state) => state.updateTodo);
 ```

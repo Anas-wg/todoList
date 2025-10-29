@@ -14,7 +14,7 @@ interface TodoItemProps {
 
 // 할 일 아이템 컴포넌트
 const TodoItem = ({ todo, onEditingChange }: TodoItemProps) => {
-  const { deleteTodo } = useTodoStore();
+  const deleteTodo = useTodoStore((state) => state.deleteTodo);
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 

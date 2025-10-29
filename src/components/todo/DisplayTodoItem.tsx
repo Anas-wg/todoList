@@ -20,7 +20,7 @@ const DisplayTodoItem = ({
   onEdit,
   onDeleteRequest,
 }: DisplayTodoItemProps) => {
-  const { updateTodo } = useTodoStore();
+  const updateTodo = useTodoStore((state) => state.updateTodo);
   const [isContentExpanded, setIsContentExpanded] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
