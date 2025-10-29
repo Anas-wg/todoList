@@ -34,7 +34,7 @@ const DisplayTodoItem = ({
     <>
       {/* 모바일 레이아웃 - 세로 배치로 변경 */}
       <div className="md:hidden">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <TodoCheckbox
             todo={todo}
             onToggle={handleToggleComplete}
@@ -49,6 +49,14 @@ const DisplayTodoItem = ({
               todo={todo}
               className="flex-1 min-w-0 pointer-events-none"
             />
+          </button>
+          <button
+            type="button"
+            onClick={onEdit}
+            className="p-1 text-gray-500 hover:text-blue-600 flex-shrink-0"
+            aria-label="수정"
+          >
+            <EditIcon className="w-4 h-4" />
           </button>
           {todo.dueDate && <DueDateDisplay dueDate={todo.dueDate} />}
           <button
