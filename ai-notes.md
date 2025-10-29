@@ -35,3 +35,32 @@
 
 - `App.tsx`: 전체 앱 구조 및 라우팅
 - `types/todo.ts`: 타입 정의는 요구사항 기반으로 직접 설계
+
+## 3. AI 코드 검증 사례
+
+### 같은 TodoItem을 Mode에 따라 다른 key로 저장
+
+- 수정 전
+
+  같은 할 일이지만 key가 달라 오늘 탭 과 모든 할 일 탭에서 다른 컴포넌트로 처리
+
+```js
+<ul>
+  {filteredTodos.map((todo) =>
+    ( <TodoItem key={${viewMode}-${todo.id}} todo={todo} />
+  ))}
+</ul>
+```
+
+- 수정 후
+
+  key를 동일하게 만들어 불필요한 컴포넌트 언마운트 방지
+  또한 수정모드 진입 후 탭 변경해도 해당 TodoITem은 수정모드 작업 유지
+
+```js
+<ul>
+  {filteredTodos.map((todo) => (
+    <TodoItem key={todo.id} todo={todo} />
+  ))}
+</ul>
+```

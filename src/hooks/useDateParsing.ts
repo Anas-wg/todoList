@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 
+// 문자열로 구성된 날짜를 받아서 Date 객체로 변환
 export const useDateParsing = (value: string): Date | null => {
   return useMemo(() => {
     if (!value) return null;
