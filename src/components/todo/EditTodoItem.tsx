@@ -13,21 +13,37 @@ interface EditTodoItemProps {
 const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
   const { updateTodo } = useTodoStore();
   const [editedTitle, setEditedTitle] = useState(todo.title);
+  const [editedDescription, setEditedDescription] = useState(
+    todo.description || ""
+  );
   const [editedDueDate, setEditedDueDate] = useState(
     todo.dueDate ? todo.dueDate.toString().split("T")[0] : ""
   );
   const [editedPriority, setEditedPriority] = useState(todo.priority);
-  const [errors, setErrors] = useState<{ title?: string }>({});
+  const [errors, setErrors] = useState<{
+    title?: string;
+    description?: string;
+  }>({});
 
   const handleSave = () => {
+    const newErrors: { title?: string; description?: string } = {};
+
     if (!editedTitle.trim()) {
-      setErrors({ title: "제목은 필수 항목입니다." });
+      newErrors.title = "제목은 필수 항목입니다.";
+    }
+
+    if (!editedDescription.trim()) {
+      newErrors.description = "내용을 입력해주세요";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
     updateTodo(todo.id, {
       title: editedTitle,
-
+      description: editedDescription,
       dueDate: editedDueDate,
       priority: editedPriority,
     });
@@ -46,6 +62,11 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
       setEditedTitle(value);
       if (value.trim()) {
         setErrors((prevErrors) => ({ ...prevErrors, title: undefined }));
+      }
+    } else if (name === "description") {
+      setEditedDescription(value);
+      if (value.trim()) {
+        setErrors((prevErrors) => ({ ...prevErrors, description: undefined }));
       }
     } else if (name === "dueDate") {
       setEditedDueDate(value);
@@ -66,6 +87,27 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
         error={errors.title}
         required
       />
+
+      <div>
+        <label
+          htmlFor="edit-description"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
+          내용 <span className="text-red-500">*</span>
+        </label>
+        <textarea
+          id="edit-description"
+          name="description"
+          value={editedDescription}
+          onChange={handleInputChange}
+          placeholder="할 일의 상세 내용을 입력하세요"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          rows={4}
+        />
+        {errors.description && (
+          <p className="mt-1 text-sm text-red-600">{errors.description}</p>
+        )}
+      </div>
 
       <InputField
         id="edit-dueDate"

@@ -16,11 +16,35 @@ interface AddTodoFormProps {
 const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
   const [formData, setFormData] = useState<CreateTodoData>({
     title: "",
+    description: "",
     dueDate: "",
     priority: "medium",
   });
-  const [errors, setErrors] = useState<{ title?: string }>({});
+  const [errors, setErrors] = useState<{
+    title?: string;
+    description?: string;
+    dueDate?: string;
+  }>({});
   const [noDeadline, setNoDeadline] = useState(true);
+
+  const isValidDate = (dateString: string): boolean => {
+    if (!dateString) return true; // 빈 값은 허용 (마감일 없음)
+
+    // YYYY-MM-DD 형식 체크
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateRegex.test(dateString)) return false;
+
+    // 실제 유효한 날짜인지 확인
+    const date = new Date(dateString);
+    const timestamp = date.getTime();
+
+    if (typeof timestamp !== "number" || Number.isNaN(timestamp)) {
+      return false;
+    }
+
+    // 입력된 날짜와 파싱된 날짜가 일치하는지 확인 (예: 2024-02-30 같은 잘못된 날짜 방지)
+    return date.toISOString().startsWith(dateString);
+  };
 
   const handleInputChange = (
     event: React.ChangeEvent<
@@ -36,6 +60,21 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
     if (name === "title" && value.trim()) {
       setErrors((prevErrors) => ({ ...prevErrors, title: undefined }));
     }
+
+    if (name === "description" && value.trim()) {
+      setErrors((prevErrors) => ({ ...prevErrors, description: undefined }));
+    }
+
+    if (name === "dueDate") {
+      if (!value || isValidDate(value)) {
+        setErrors((prevErrors) => ({ ...prevErrors, dueDate: undefined }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          dueDate: "올바른 날짜 형식이 아닙니다 (YYYY-MM-DD)",
+        }));
+      }
+    }
   };
 
   const handleNoDeadlineChange = (
@@ -48,14 +87,33 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
         ...prevData,
         dueDate: "",
       }));
+      setErrors((prevErrors) => ({ ...prevErrors, dueDate: undefined }));
     }
   };
 
   const handleFormSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
+    const newErrors: {
+      title?: string;
+      description?: string;
+      dueDate?: string;
+    } = {};
+
     if (!formData.title.trim()) {
-      setErrors({ title: "제목을 입력해주세요" });
+      newErrors.title = "제목을 입력해주세요";
+    }
+
+    if (!formData.description?.trim()) {
+      newErrors.description = "내용을 입력해주세요";
+    }
+
+    if (formData.dueDate && !isValidDate(formData.dueDate)) {
+      newErrors.dueDate = "올바른 날짜 형식이 아닙니다 (YYYY-MM-DD)";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
@@ -63,6 +121,7 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
 
     setFormData({
       title: "",
+      description: "",
       dueDate: "",
       priority: "medium",
     });
@@ -86,6 +145,27 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
         error={errors.title}
         required
       />
+
+      <div className="mb-4">
+        <label
+          htmlFor="description"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
+          내용 <span className="text-red-500">*</span>
+        </label>
+        <textarea
+          id="description"
+          name="description"
+          value={formData.description}
+          onChange={handleInputChange}
+          placeholder="할 일의 상세 내용을 입력하세요"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          rows={4}
+        />
+        {errors.description && (
+          <p className="mt-1 text-sm text-red-600">{errors.description}</p>
+        )}
+      </div>
 
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -114,6 +194,7 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
           onChange={handleInputChange}
           label=""
           disabled={noDeadline}
+          error={errors.dueDate}
         />
       </div>
       <InputField
