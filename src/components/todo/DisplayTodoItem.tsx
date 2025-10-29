@@ -4,7 +4,7 @@ import PriorityBadge from "../common/PriorityBadge";
 import TodoTitle from "./TodoTitle";
 import DueDateDisplay from "./DueDateDisplay";
 import DeleteButton from "./DeleteButton";
-import TodoCheckbox from "./TodoCheckBox";
+import TodoCheckbox from "./TodoCheckbox";
 
 interface DisplayTodoItemProps {
   todo: Todo;
