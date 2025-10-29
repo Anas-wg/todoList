@@ -1,4 +1,3 @@
-import React from "react";
 import PrioritySelector from "../PrioritySelector";
 
 interface SelectInputProps {

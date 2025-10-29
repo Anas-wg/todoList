@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Calendar from "../Calendar";
 import { useDateParsing } from "../../../hooks/useDateParsing";
 import CalendarIcon from "../icons/CalendarIcon";

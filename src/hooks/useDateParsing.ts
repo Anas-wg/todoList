@@ -1,9 +1,5 @@
 import { useMemo } from "react";
 
-/**
- * 날짜 문자열을 파싱하는 커스텀 훅
- * YYYY-MM-DD 형식의 문자열을 Date 객체로 변환
- */
 export const useDateParsing = (value: string): Date | null => {
   return useMemo(() => {
     if (!value) return null;

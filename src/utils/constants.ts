@@ -1,7 +1,3 @@
-/**
- * 애플리케이션 상수들
- */
-
 export const PRIORITY_LEVELS = {
   URGENT: "urgent",
   HIGH: "high",

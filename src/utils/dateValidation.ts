@@ -1,8 +1,3 @@
-/**
- * 날짜 문자열이 유효한 YYYY-MM-DD 형식인지 검증합니다.
- * @param dateString - 검증할 날짜 문자열
- * @returns 유효한 날짜면 true, 아니면 false
- */
 export const isValidDate = (dateString: string): boolean => {
   if (!dateString) return true;
 
