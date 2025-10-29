@@ -64,3 +64,34 @@
   ))}
 </ul>
 ```
+
+### 흩어진 로직을 관련 파일로 집중
+
+- 수정 전
+  탭 변경시 정렬 기준을 변경하는 로직이 ViewTabs가 아닌 상위 컴포넌트인 App.tsx에 위치
+
+```js
+// App.tsx
+const handleViewModeChange = (mode: "today" | "all") => {
+  setViewMode(mode);
+  if (mode === "today") {
+    setSortBy("dueDate");
+  } else {
+    setSortBy("priority");
+  }
+};
+```
+
+- 수정 후
+  ViewTabs 컴포넌트에 탭 변경 관련 로직을 모아 관련 로직을 한 곳에 집중
+
+```js
+const handleViewModeChange = (mode: "today" | "all") => {
+  onViewModeChange(mode);
+  if (mode === "today") {
+    onSortChange("dueDate");
+  } else {
+    onSortChange("priority");
+  }
+};
+```
