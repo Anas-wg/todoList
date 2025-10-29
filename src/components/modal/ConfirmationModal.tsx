@@ -48,15 +48,7 @@ const ConfirmationModal = ({
                 </div>
               </div>
             </div>
-            <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-              <BaseButton
-                type="button"
-                variant="z-primary"
-                size="S"
-                onClick={onConfirm}
-              >
-                삭제
-              </BaseButton>
+            <div className="mt-5 sm:mt-4 flex gap-3 justify-center">
               <BaseButton
                 type="button"
                 variant="z-secondary"
@@ -64,6 +56,14 @@ const ConfirmationModal = ({
                 onClick={onClose}
               >
                 취소
+              </BaseButton>
+              <BaseButton
+                type="button"
+                variant="z-primary"
+                size="S"
+                onClick={onConfirm}
+              >
+                삭제
               </BaseButton>
             </div>
           </div>
