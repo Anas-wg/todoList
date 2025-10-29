@@ -4,7 +4,7 @@
 
 - **Cursor AI (Claude Sonnet 4.5)**: 주 개발 도구로 활용
 - **Gemini CLI**: : 보조 개발 도구로 활용
-- **Chat GPT** : 검증용 도구, 문서 작성시 활용
+- **Chat GPT** : 검증용 도구, 문서 작성 시 활용
 
 ## 2. AI 생성 코드 반영 범위
 

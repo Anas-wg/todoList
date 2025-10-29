@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { isValidDate } from "./dateValidation";
+import { isValidDate } from "../utils/dateValidation";
 
 describe("날짜 검증 로직", () => {
   describe("빈 문자열과 유효한 날짜를 허용한다", () => {
