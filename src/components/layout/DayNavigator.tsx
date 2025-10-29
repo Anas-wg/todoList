@@ -6,6 +6,7 @@ interface DayNavigatorProps {
   onDateChange: (date: Date) => void;
 }
 
+// 상단 날짜 이동 로직 컴포넌트
 const DayNavigator = ({ date, onDateChange }: DayNavigatorProps) => {
   const handlePrev = () => {
     const prevDate = new Date(

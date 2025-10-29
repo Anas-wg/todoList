@@ -6,6 +6,7 @@ interface AddTodoModalProps {
   onCreateTodo: (data: CreateTodoData) => void;
 }
 
+// 할 일 추가 모달 컴포넌트
 const AddTodoModal = ({ isOpen, onClose, onCreateTodo }: AddTodoModalProps) => {
   if (!isOpen) return null;
 

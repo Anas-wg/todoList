@@ -1,8 +1,8 @@
-import React, { useState } from "react";
 import type { Todo } from "../../types/todo";
 import BaseButton from "../common/BaseButton";
 import InputField from "../common/InputField";
 import { PRIORITY_OPTIONS } from "../../utils/constants";
+import { useAddTodoForm } from "../../hooks/useAddTodoForm";
 
 export type CreateTodoData = Omit<
   Todo,
@@ -13,121 +13,16 @@ interface AddTodoFormProps {
   onCreateTodo: (newTodo: CreateTodoData) => void;
 }
 
+// 할 일 추가 폼 컴포넌트
 const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
-  const [formData, setFormData] = useState<CreateTodoData>({
-    title: "",
-    description: "",
-    dueDate: "",
-    priority: "medium",
-  });
-  const [errors, setErrors] = useState<{
-    title?: string;
-    description?: string;
-    dueDate?: string;
-  }>({});
-  const [noDeadline, setNoDeadline] = useState(true);
-
-  const isValidDate = (dateString: string): boolean => {
-    if (!dateString) return true; // 빈 값은 허용 (마감일 없음)
-
-    // YYYY-MM-DD 형식 체크
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateRegex.test(dateString)) return false;
-
-    // 실제 유효한 날짜인지 확인
-    const date = new Date(dateString);
-    const timestamp = date.getTime();
-
-    if (typeof timestamp !== "number" || Number.isNaN(timestamp)) {
-      return false;
-    }
-
-    // 입력된 날짜와 파싱된 날짜가 일치하는지 확인 (예: 2024-02-30 같은 잘못된 날짜 방지)
-    return date.toISOString().startsWith(dateString);
-  };
-
-  const handleInputChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-
-    if (name === "title" && value.trim()) {
-      setErrors((prevErrors) => ({ ...prevErrors, title: undefined }));
-    }
-
-    if (name === "description" && value.trim()) {
-      setErrors((prevErrors) => ({ ...prevErrors, description: undefined }));
-    }
-
-    if (name === "dueDate") {
-      if (!value || isValidDate(value)) {
-        setErrors((prevErrors) => ({ ...prevErrors, dueDate: undefined }));
-      } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          dueDate: "올바른 날짜 형식이 아닙니다 (YYYY-MM-DD)",
-        }));
-      }
-    }
-  };
-
-  const handleNoDeadlineChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const checked = event.target.checked;
-    setNoDeadline(checked);
-    if (checked) {
-      setFormData((prevData) => ({
-        ...prevData,
-        dueDate: "",
-      }));
-      setErrors((prevErrors) => ({ ...prevErrors, dueDate: undefined }));
-    }
-  };
-
-  const handleFormSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    const newErrors: {
-      title?: string;
-      description?: string;
-      dueDate?: string;
-    } = {};
-
-    if (!formData.title.trim()) {
-      newErrors.title = "제목을 입력해주세요";
-    }
-
-    if (!formData.description?.trim()) {
-      newErrors.description = "내용을 입력해주세요";
-    }
-
-    if (formData.dueDate && !isValidDate(formData.dueDate)) {
-      newErrors.dueDate = "올바른 날짜 형식이 아닙니다 (YYYY-MM-DD)";
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    onCreateTodo(formData);
-
-    setFormData({
-      title: "",
-      description: "",
-      dueDate: "",
-      priority: "medium",
-    });
-    setErrors({});
-    setNoDeadline(true);
-  };
+  const {
+    formData,
+    errors,
+    noDeadline,
+    handleInputChange,
+    handleNoDeadlineChange,
+    handleFormSubmit,
+  } = useAddTodoForm({ onCreateTodo });
 
   return (
     <form

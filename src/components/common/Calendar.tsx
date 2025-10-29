@@ -75,6 +75,7 @@ export default function Calendar({
     );
 
     const remaining = 7 - (days.length % 7);
+
     if (remaining < 7) {
       days.push(
         ...Array.from(

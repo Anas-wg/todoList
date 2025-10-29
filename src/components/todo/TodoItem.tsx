@@ -12,6 +12,7 @@ interface TodoItemProps {
   onEditingChange?: (editing: boolean) => void;
 }
 
+// 할 일 아이템 컴포넌트
 const TodoItem = ({ todo, onEditingChange }: TodoItemProps) => {
   const { deleteTodo } = useTodoStore();
   const [isEditing, setIsEditing] = useState(false);

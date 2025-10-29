@@ -14,6 +14,7 @@ interface DisplayTodoItemProps {
   onDeleteRequest: () => void;
 }
 
+// 할 일 표시 컴포넌트
 const DisplayTodoItem = ({
   todo,
   onEdit,
@@ -84,9 +85,7 @@ const DisplayTodoItem = ({
         )}
       </div>
 
-      {/* 태블릿/PC 레이아웃 - 카드 형태 */}
       <div className="hidden md:flex md:flex-col md:h-full">
-        {/* 상단: 체크박스 + 제목 + 수정 버튼 + 삭제 버튼 */}
         <div className="flex items-center justify-between gap-3 mb-3">
           <div className="flex items-center gap-3 flex-1 min-w-0 py-2">
             <TodoCheckbox
@@ -107,7 +106,6 @@ const DisplayTodoItem = ({
           <DeleteButton onDelete={onDeleteRequest} size="large" />
         </div>
 
-        {/* 중간: 내용 (항상 공간 확보) */}
         {todo.description ? (
           <div className="ml-9 mb-3">
             <div
@@ -133,7 +131,6 @@ const DisplayTodoItem = ({
           <div className="ml-9 mb-3 min-h-[1.5rem]" />
         )}
 
-        {/* 하단: 우선순위와 마감일 */}
         <div className="flex items-center justify-between gap-2 py-2">
           <PriorityBadge priority={todo.priority} />
           {todo.dueDate && <DueDateDisplay dueDate={todo.dueDate} />}

@@ -2,7 +2,7 @@ interface DueDateDisplayProps {
   dueDate: string;
   onEdit?: () => void;
 }
-
+// 마감일 표시 컴포넌트
 const DueDateDisplay = ({ dueDate, onEdit }: DueDateDisplayProps) => {
   const Element = onEdit ? "button" : "span";
 

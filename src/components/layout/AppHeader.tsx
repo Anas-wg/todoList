@@ -1,3 +1,5 @@
+// 최상단 Logo 영역 컴포넌트
+
 const AppHeader = () => {
   return (
     <header className="mb-4 md:mb-6">

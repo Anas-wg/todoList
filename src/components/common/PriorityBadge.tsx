@@ -4,7 +4,7 @@ interface PriorityBadgeProps {
   priority: string;
   className?: string;
 }
-
+// 우선순위 선정버튼 컴포넌트
 const PriorityBadge = ({ priority, className = "" }: PriorityBadgeProps) => {
   const getPriorityColor = (priorityValue: string) => {
     switch (priorityValue) {

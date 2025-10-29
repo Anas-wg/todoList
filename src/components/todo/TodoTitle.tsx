@@ -6,6 +6,7 @@ interface TodoTitleProps {
   className?: string;
 }
 
+// 할 일 제목 컴포넌트
 const TodoTitle = ({ todo, onEdit, className = "" }: TodoTitleProps) => {
   const handleClick = () => {
     if (onEdit) onEdit();

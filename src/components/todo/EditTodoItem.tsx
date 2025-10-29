@@ -9,7 +9,7 @@ interface EditTodoItemProps {
   todo: Todo;
   onCancel: () => void;
 }
-
+// 할 일 수정 폼 컴포넌트
 const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
   const { updateTodo } = useTodoStore();
   const [editedTitle, setEditedTitle] = useState(todo.title);
@@ -26,6 +26,7 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
     description?: string;
   }>({});
 
+  // 수정 내용 저장 핸들러
   const handleSave = () => {
     const newErrors: { title?: string; description?: string } = {};
 
@@ -52,6 +53,7 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
     setErrors({});
   };
 
+  // 마감일 없음 체크박스 핸들러
   const handleNoDeadlineChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -62,6 +64,7 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
     }
   };
 
+  // 입력 필드 값 변경 핸들러
   const handleInputChange = (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement

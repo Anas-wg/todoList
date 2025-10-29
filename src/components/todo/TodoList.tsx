@@ -13,6 +13,7 @@ interface TodoListProps {
   onAddClick: () => void;
 }
 
+// 할 일 목록 컴포넌트
 const TodoList = ({
   viewMode,
   sortBy,

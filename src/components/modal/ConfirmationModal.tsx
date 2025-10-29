@@ -8,7 +8,7 @@ interface ConfirmationModalProps {
   onConfirm: () => void;
   onClose: () => void;
 }
-
+// 삭제 확인 모달 컴포넌트
 const ConfirmationModal = ({
   isOpen,
   title,
