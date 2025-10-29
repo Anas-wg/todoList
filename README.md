@@ -18,6 +18,7 @@ React + TypeScript + Vite 기반의 할일 관리 애플리케이션입니다.
   - [마감 기한 설정](#마감기한-설정)
   - [우선 순위 수정](#우선-순위-수정)
   - [완료 처리](#완료-처리)
+- [State 흐름](#state-흐름)
 
 ## 실행 가이드
 
@@ -143,3 +144,15 @@ src/
 ### 완료 처리
 
 ![Image](https://github.com/user-attachments/assets/ce9e84a7-e25c-450d-b918-a7ef4f382a5e)
+
+## 컴포넌트 구조도 및 상태 관리 흐름도
+
+- 컴포넌트 구조도
+
+<img width="940" height="766" alt="Image" src="https://github.com/user-attachments/assets/2f61318b-4e7b-469b-aa18-c6123238f4e8" />
+
+- 상태 관리 흐름도
+
+<img width="940" height="418" alt="Image" src="https://github.com/user-attachments/assets/783b29ba-2500-4529-8658-0e98795c3d2f" />
+
+-
