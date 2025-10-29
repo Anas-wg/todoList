@@ -1,4 +1,3 @@
-import React from "react";
 import AddTodoForm, { CreateTodoData } from "../todo/AddTodoForm";
 
 interface AddTodoModalProps {
@@ -22,7 +21,7 @@ const AddTodoModal = ({ isOpen, onClose, onCreateTodo }: AddTodoModalProps) => {
         onClick={onClose}
         aria-hidden="true"
       />
-      <div className="relative w-full md:w-auto max-w-2xl bg-white rounded-2xl md:rounded-xl shadow-xl p-4 md:p-6 max-h-[80vh] overflow-y-auto overflow-visible pb-16">
+      <div className="relative w-full md:w-[700px] max-w-4xl bg-white rounded-2xl md:rounded-xl shadow-xl p-4 md:p-6 max-h-[80vh] overflow-y-auto overflow-visible pb-16">
         <div className="flex items-center justify-between mb-2">
           <h3
             id="add-todo-title"
