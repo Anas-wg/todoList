@@ -24,17 +24,20 @@ function App() {
         <AppHeader />
         <main className="space-y-4 md:space-y-6">
           <section className="overflow-hidden">
+            {/* 상단 오늘/모든 할 일 탭 컴포넌트 */}
             <ViewTabs
               viewMode={viewMode}
               onViewModeChange={setViewMode}
               onSortChange={setSortBy}
             />
+            {/* 오늘 탭 - 상단 날짜 이동 로직 컴포넌트 */}
             {isTodayView && (
               <DayNavigator
                 date={selectedDate}
                 onDateChange={setSelectedDate}
               />
             )}
+            {/* 할 일 목록 컴포넌트 */}
             <TodoList
               viewMode={viewMode}
               sortBy={sortBy}
@@ -45,6 +48,7 @@ function App() {
             />
           </section>
         </main>
+        {/* 할 일 추가 모달 컴포넌트 */}
         {isAddOpen && (
           <Suspense fallback={null}>
             <AddTodoModal
