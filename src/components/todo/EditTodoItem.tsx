@@ -20,6 +20,7 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
     todo.dueDate ? todo.dueDate.toString().split("T")[0] : ""
   );
   const [editedPriority, setEditedPriority] = useState(todo.priority);
+  const [noDeadline, setNoDeadline] = useState(!todo.dueDate);
   const [errors, setErrors] = useState<{
     title?: string;
     description?: string;
@@ -49,6 +50,16 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
     });
     onCancel();
     setErrors({});
+  };
+
+  const handleNoDeadlineChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const checked = event.target.checked;
+    setNoDeadline(checked);
+    if (checked) {
+      setEditedDueDate("");
+    }
   };
 
   const handleInputChange = (
@@ -109,14 +120,35 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
         )}
       </div>
 
-      <InputField
-        id="edit-dueDate"
-        name="dueDate"
-        type="date"
-        value={editedDueDate}
-        onChange={handleInputChange}
-        label="마감일"
-      />
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          마감일
+        </label>
+        <div className="flex items-center gap-3 mb-2">
+          <input
+            type="checkbox"
+            id="edit-noDeadline"
+            checked={noDeadline}
+            onChange={handleNoDeadlineChange}
+            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+          />
+          <label
+            htmlFor="edit-noDeadline"
+            className="text-sm text-gray-700 cursor-pointer select-none"
+          >
+            마감일 없음
+          </label>
+        </div>
+        <InputField
+          id="edit-dueDate"
+          name="dueDate"
+          type="date"
+          value={editedDueDate}
+          onChange={handleInputChange}
+          label=""
+          disabled={noDeadline}
+        />
+      </div>
       <InputField
         id="edit-priority"
         name="priority"
