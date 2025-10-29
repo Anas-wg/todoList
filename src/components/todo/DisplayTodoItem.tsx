@@ -21,6 +21,7 @@ const DisplayTodoItem = ({
 }: DisplayTodoItemProps) => {
   const { updateTodo } = useTodoStore();
   const [isContentExpanded, setIsContentExpanded] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   const handleToggleComplete = () => {
     updateTodo(todo.id, { completed: !todo.completed });
@@ -28,6 +29,10 @@ const DisplayTodoItem = ({
 
   const handleToggleContent = () => {
     setIsContentExpanded(!isContentExpanded);
+  };
+
+  const handleToggleDescription = () => {
+    setIsDescriptionExpanded(!isDescriptionExpanded);
   };
 
   return (
@@ -69,7 +74,11 @@ const DisplayTodoItem = ({
           <DeleteButton onDelete={onDeleteRequest} />
         </div>
         {isContentExpanded && todo.description && (
-          <div className="mt-2 ml-9 text-sm text-gray-600 whitespace-pre-wrap">
+          <div
+            className={`mt-2 ml-9 text-sm whitespace-pre-wrap break-words ${
+              todo.completed ? "line-through text-gray-400" : "text-gray-600"
+            }`}
+          >
             {todo.description}
           </div>
         )}
@@ -99,9 +108,30 @@ const DisplayTodoItem = ({
         </div>
 
         {/* 중간: 내용 (항상 공간 확보) */}
-        <div className="ml-9 mb-3 text-sm text-gray-600 whitespace-pre-wrap min-h-[1.5rem]">
-          {todo.description || ""}
-        </div>
+        {todo.description ? (
+          <div className="ml-9 mb-3">
+            <div
+              className={`text-sm whitespace-pre-wrap break-words ${
+                !isDescriptionExpanded ? "line-clamp-3" : ""
+              } ${
+                todo.completed ? "line-through text-gray-400" : "text-gray-600"
+              }`}
+            >
+              {todo.description}
+            </div>
+            {todo.description.length > 100 && (
+              <button
+                type="button"
+                onClick={handleToggleDescription}
+                className="text-xs text-blue-600 hover:text-blue-800 mt-1"
+              >
+                {isDescriptionExpanded ? "접기" : "더보기"}
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="ml-9 mb-3 min-h-[1.5rem]" />
+        )}
 
         {/* 하단: 우선순위와 마감일 */}
         <div className="flex items-center justify-between gap-2 py-2">

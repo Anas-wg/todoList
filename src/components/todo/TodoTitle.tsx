@@ -25,9 +25,10 @@ const TodoTitle = ({ todo, onEdit, className = "" }: TodoTitleProps) => {
       onKeyDown={onEdit ? handleKeyDown : undefined}
     >
       <h3
-        className={`text-base font-medium leading-snug ${
+        className={`text-base font-medium leading-snug line-clamp-2 ${
           todo.completed ? "line-through text-gray-500" : "text-gray-900"
         }`}
+        title={todo.title}
       >
         {todo.title}
       </h3>
