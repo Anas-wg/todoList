@@ -24,12 +24,12 @@ function isSameDay(a?: Date | null, b?: Date | null) {
   );
 }
 
-export default function Calendar({
+const Calendar = ({
   value = null,
   onChange,
   showAdjacentMonths = true,
   className = "",
-}: CalendarProps) {
+}: CalendarProps) => {
   const today = useMemo(() => startOfDay(new Date()), []);
   const [currentMonth, setCurrentMonth] = useState<Date>(today);
 
@@ -199,4 +199,6 @@ export default function Calendar({
       </table>
     </div>
   );
-}
+};
+
+export default Calendar;

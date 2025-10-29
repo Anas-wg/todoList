@@ -6,8 +6,9 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        'z-primary': 'bg-brand text-white hover:brightness-90 focus:ring-brand',
-        'z-secondary': 'bg-fill-muted text-fg hover:brightness-95 focus:ring-brand',
+        "z-primary": "bg-brand text-white hover:brightness-90 focus:ring-brand",
+        "z-secondary":
+          "bg-fill-muted text-fg hover:brightness-95 focus:ring-brand",
       },
       size: {
         XL: "w-[360px] rounded-xl py-3 px-5 text-base",
@@ -30,16 +31,12 @@ interface Props
   children: React.ReactNode;
 }
 
-export default function BaseButton({
-  variant,
-  size,
-  className,
-  children,
-  ...rest
-}: Props) {
+const BaseButton = ({ variant, size, className, children, ...rest }: Props) => {
   return (
     <button className={buttonVariants({ variant, size, className })} {...rest}>
       {children}
     </button>
   );
-}
+};
+
+export default BaseButton;

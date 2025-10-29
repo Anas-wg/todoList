@@ -1,4 +1,3 @@
-import React from "react";
 import type { SortKey } from "../../hooks/useSortedTodos";
 
 interface SortBarProps {

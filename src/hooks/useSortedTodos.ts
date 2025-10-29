@@ -5,7 +5,7 @@ import { PRIORITY_ORDER } from "../utils/constants";
 export type SortKey = "none" | "dueDate" | "priority";
 
 // 할 일 정렬 커스텀 훅
-export function useSortedTodos(todos: Todo[], sortBy: SortKey) {
+export const useSortedTodos = (todos: Todo[], sortBy: SortKey) => {
   return useMemo(() => {
     const copy = [...todos];
     // 마감일 순 정렬
@@ -30,4 +30,4 @@ export function useSortedTodos(todos: Todo[], sortBy: SortKey) {
     }
     return copy;
   }, [todos, sortBy]);
-}
+};
