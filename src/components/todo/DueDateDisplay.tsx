@@ -1,12 +1,14 @@
 interface DueDateDisplayProps {
   dueDate: string;
-  onEdit: () => void;
+  onEdit?: () => void;
 }
 
 const DueDateDisplay = ({ dueDate, onEdit }: DueDateDisplayProps) => {
+  const Element = onEdit ? "button" : "span";
+
   return (
-    <button
-      type="button"
+    <Element
+      type={onEdit ? "button" : undefined}
       className="text-xs text-gray-400 whitespace-nowrap flex-shrink-0"
       onClick={onEdit}
     >
@@ -14,7 +16,7 @@ const DueDateDisplay = ({ dueDate, onEdit }: DueDateDisplayProps) => {
         month: "short",
         day: "numeric",
       })}
-    </button>
+    </Element>
   );
 };
 
