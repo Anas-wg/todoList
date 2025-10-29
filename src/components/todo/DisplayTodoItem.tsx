@@ -93,7 +93,20 @@ const DisplayTodoItem = ({
               onToggle={handleToggleComplete}
               idPrefix="checkbox-desktop"
             />
-            <TodoTitle todo={todo} className="flex-1 min-w-0" />
+            <div className="flex-1 min-w-0">
+              <h3
+                className={`text-base font-medium leading-snug ${
+                  isDescriptionExpanded ? "" : "line-clamp-1"
+                } ${
+                  todo.completed
+                    ? "line-through text-gray-500"
+                    : "text-gray-900"
+                }`}
+                title={todo.title}
+              >
+                {todo.title}
+              </h3>
+            </div>
             <button
               type="button"
               onClick={onEdit}
@@ -106,32 +119,51 @@ const DisplayTodoItem = ({
           <DeleteButton onDelete={onDeleteRequest} size="large" />
         </div>
 
-        {todo.description ? (
-          <div className="ml-9 mb-3">
-            <div
-              className={`text-sm whitespace-pre-wrap break-words ${
-                !isDescriptionExpanded ? "line-clamp-3" : ""
-              } ${
-                todo.completed ? "line-through text-gray-400" : "text-gray-600"
-              }`}
-            >
-              {todo.description}
-            </div>
-            {todo.description.length > 100 && (
-              <button
-                type="button"
-                onClick={handleToggleDescription}
-                className="text-xs text-blue-600 hover:text-blue-800 mt-1"
+        <div className="ml-9 mb-3 flex-1">
+          {todo.description ? (
+            <>
+              <div
+                className={`text-sm whitespace-pre-wrap break-words h-5 overflow-hidden ${
+                  isDescriptionExpanded ? "h-auto" : ""
+                } ${
+                  todo.completed
+                    ? "line-through text-gray-400"
+                    : "text-gray-600"
+                }`}
               >
-                {isDescriptionExpanded ? "접기" : "더보기"}
-              </button>
-            )}
-          </div>
-        ) : (
-          <div className="ml-9 mb-3 min-h-[1.5rem]" />
-        )}
+                {todo.description}
+              </div>
+              <div className="h-6 flex items-start mt-1">
+                {(todo.description.length > 100 || todo.title.length > 30) && (
+                  <button
+                    type="button"
+                    onClick={handleToggleDescription}
+                    className="text-xs text-blue-600 hover:text-blue-800"
+                  >
+                    {isDescriptionExpanded ? "접기" : "더보기"}
+                  </button>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="h-5" />
+              <div className="h-6 mt-1">
+                {todo.title.length > 30 && (
+                  <button
+                    type="button"
+                    onClick={handleToggleDescription}
+                    className="text-xs text-blue-600 hover:text-blue-800"
+                  >
+                    {isDescriptionExpanded ? "접기" : "더보기"}
+                  </button>
+                )}
+              </div>
+            </>
+          )}
+        </div>
 
-        <div className="flex items-center justify-between gap-2 py-2">
+        <div className="flex items-center justify-between gap-2 py-2 mt-auto">
           <PriorityBadge priority={todo.priority} />
           {todo.dueDate && <DueDateDisplay dueDate={todo.dueDate} />}
         </div>
