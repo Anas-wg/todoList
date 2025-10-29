@@ -58,6 +58,7 @@ const TodoItem = ({ todo, onEditingChange }: TodoItemProps) => {
       )}
 
       {showDeleteModal && (
+        // 모달은 초기 로딩시 필요 없으니 Suspense
         <Suspense fallback={null}>
           <ConfirmationModal
             isOpen={showDeleteModal}
