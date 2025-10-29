@@ -12,11 +12,12 @@ React + TypeScript + Vite 기반의 할일 관리 애플리케이션입니다.
 - [컴포넌트 구조](#컴포넌트-구조)
 - [개발 환경](#개발-환경)
 - [주요 기능](#주요-기능)
-  - [메인 화면](#메인-화면)
-  - [모든 todolist 조회](#모든-todolist-조회)
-  - [오늘 탭 날짜 이동](#오늘-탭---날짜-이동)
-  - [할일 추가](#할-일-추가)
-  - [할일 삭제](#할일-삭제)
+  - [TODO 등록](#todo-등록)
+  - [TODO 목록조회](#todo-목록조회)
+  - [TOOD 삭제](#todo-삭제)
+  - [마감 기한 설정](#마감기한-설정)
+  - [우선 순위 수정](#우선-순위-수정)
+  - [완료 처리](#완료-처리)
 
 ## 실행 가이드
 
@@ -115,46 +116,30 @@ src/
 
 ## 주요 기능
 
-### 메인 화면
+### TODO 등록
 
-- Mobile
+![Image](https://github.com/user-attachments/assets/3a6bee38-61dd-4b9c-82b9-2de5c1aabc88)
 
-<img width="363" height="741" alt="Image" src="https://github.com/user-attachments/assets/23e52d7c-2561-4aa6-99c1-701e1a1d4caa" />
+### TODO 목록조회
 
-- Tablet
+![Image](https://github.com/user-attachments/assets/2d368c1f-57aa-42cb-b56c-14242c6b94e9)
 
-<img width="575" height="601" alt="Image" src="https://github.com/user-attachments/assets/ac86ff0e-f192-4963-a96a-d90029790fee" />
+### TODO 수정
 
-- PC
+![Image](https://github.com/user-attachments/assets/f6282faf-6b07-44b3-82ee-01fdcabf7170)
 
-<img width="1265" height="653" alt="Image" src="https://github.com/user-attachments/assets/a2cba5d7-98cd-4eae-bad4-9c6d5e549879" />
+### TODO 삭제
 
-### 모든 todolist 조회
+![Image](https://github.com/user-attachments/assets/cfc56404-74fb-4429-8ea1-928827ff9029)
 
-<img width="375" height="671" alt="Image" src="https://github.com/user-attachments/assets/c0533d9c-5ac8-41df-8268-35694750fa60" />
+### 마감기한 설정
 
-### 오늘 탭 - 날짜 이동
+![Image](https://github.com/user-attachments/assets/a94500d2-d9bb-4f6c-aba0-d549dc20e9a5)
 
-> 상단 버튼을 통해 전날과 다음날로 이동
+### 우선 순위 수정
 
-<img width="377" height="671" alt="Image" src="https://github.com/user-attachments/assets/d6068c9a-2167-4fc2-97c6-1bd065aae0b7" />
+![Image](https://github.com/user-attachments/assets/b6da0468-96b5-41e1-9b42-59e5a8676df4)
 
-### 할 일 추가
+### 완료 처리
 
-> 마감일 없음 체크박스 선택한 경우
-
-<img width="379" height="665" alt="Image" src="https://github.com/user-attachments/assets/ca66fc8a-2f42-4747-a1f6-b689e4c6ec45" />
-
-> 마감일 있는 경우 키보드로 직접 날짜입력
-
-<img width="375" height="669" alt="Image" src="https://github.com/user-attachments/assets/f0abfcc7-6cc1-4e8a-9e35-a12d3ae477bc" />
-
-> 마감일 있는 경우 달력에서 날짜 선택
-
-<img width="375" height="667" alt="Image" src="https://github.com/user-attachments/assets/f49ba66e-74f9-449a-8883-1e86d0260dd0" />
-
-<img width="375" height="671" alt="Image" src="https://github.com/user-attachments/assets/a3040244-41a2-4a59-9f86-256221b20302" />
-
-### 할일 삭제
-
-<img width="377" height="669" alt="Image" src="https://github.com/user-attachments/assets/2eda3c45-9397-4f89-96a2-4a8d0b1c6a7f" />
+![Image](https://github.com/user-attachments/assets/ce9e84a7-e25c-450d-b918-a7ef4f382a5e)
