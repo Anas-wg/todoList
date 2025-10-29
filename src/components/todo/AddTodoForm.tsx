@@ -73,7 +73,7 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
   return (
     <form
       onSubmit={handleFormSubmit}
-      className="bg-white p-4 md:p-6 rounded-lg shadow-md mb-6 md:mb-8"
+      className="bg-white p-4 md:p-6 rounded-lg mb-6 md:mb-8"
     >
       <InputField
         id="title"
