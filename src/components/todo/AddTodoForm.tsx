@@ -20,6 +20,7 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
     priority: "medium",
   });
   const [errors, setErrors] = useState<{ title?: string }>({});
+  const [noDeadline, setNoDeadline] = useState(true);
 
   const handleInputChange = (
     event: React.ChangeEvent<
@@ -34,6 +35,19 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
 
     if (name === "title" && value.trim()) {
       setErrors((prevErrors) => ({ ...prevErrors, title: undefined }));
+    }
+  };
+
+  const handleNoDeadlineChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const checked = event.target.checked;
+    setNoDeadline(checked);
+    if (checked) {
+      setFormData((prevData) => ({
+        ...prevData,
+        dueDate: "",
+      }));
     }
   };
 
@@ -53,6 +67,7 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
       priority: "medium",
     });
     setErrors({});
+    setNoDeadline(true);
   };
 
   return (
@@ -72,14 +87,35 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
         required
       />
 
-      <InputField
-        id="dueDate"
-        name="dueDate"
-        type="date"
-        value={formData.dueDate}
-        onChange={handleInputChange}
-        label="마감일"
-      />
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          마감일
+        </label>
+        <div className="flex items-center gap-3 mb-2">
+          <input
+            type="checkbox"
+            id="noDeadline"
+            checked={noDeadline}
+            onChange={handleNoDeadlineChange}
+            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+          />
+          <label
+            htmlFor="noDeadline"
+            className="text-sm text-gray-700 cursor-pointer select-none"
+          >
+            마감일 없음
+          </label>
+        </div>
+        <InputField
+          id="dueDate"
+          name="dueDate"
+          type="date"
+          value={formData.dueDate}
+          onChange={handleInputChange}
+          label=""
+          disabled={noDeadline}
+        />
+      </div>
       <InputField
         id="priority"
         name="priority"
