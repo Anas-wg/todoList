@@ -19,6 +19,7 @@ interface TodoStore {
   clearError: () => void;
 }
 
+// Zustand 스토어 (API 기반)
 export const useTodoStore = create<TodoStore>()((set) => ({
   // 초기 상태
   todos: [],

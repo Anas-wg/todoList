@@ -8,7 +8,7 @@ interface ConfirmationModalProps {
   onConfirm: () => void;
   onClose: () => void;
 }
-
+// 삭제 확인 모달 컴포넌트
 const ConfirmationModal = ({
   isOpen,
   title,
@@ -27,7 +27,7 @@ const ConfirmationModal = ({
       role="dialog"
       aria-modal="true"
     >
-      <div className="fixed inset-0 bg-fg bg-opacity-75 transition-opacity"></div>
+      <div className="fixed inset-0 bg-black/30 transition-opacity"></div>
 
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -48,15 +48,7 @@ const ConfirmationModal = ({
                 </div>
               </div>
             </div>
-            <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-              <BaseButton
-                type="button"
-                variant="z-primary"
-                size="S"
-                onClick={onConfirm}
-              >
-                삭제
-              </BaseButton>
+            <div className="mt-5 sm:mt-4 flex gap-3 justify-center">
               <BaseButton
                 type="button"
                 variant="z-secondary"
@@ -64,6 +56,14 @@ const ConfirmationModal = ({
                 onClick={onClose}
               >
                 취소
+              </BaseButton>
+              <BaseButton
+                type="button"
+                variant="z-primary"
+                size="S"
+                onClick={onConfirm}
+              >
+                삭제
               </BaseButton>
             </div>
           </div>

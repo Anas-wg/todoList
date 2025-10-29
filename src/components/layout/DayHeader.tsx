@@ -14,6 +14,7 @@ const weekday = [
   "SATURDAY",
 ];
 
+// 날짜 포맷팅
 function formatLongDate(d: Date) {
   const monthNames = [
     "January",
@@ -32,6 +33,7 @@ function formatLongDate(d: Date) {
   return `${monthNames[d.getMonth()]} ${d.getDate()}th`;
 }
 
+// 상단 날짜 이동 로직 컴포넌트
 const DayHeader = ({ date, onPrev, onNext }: DayHeaderProps) => {
   return (
     <nav

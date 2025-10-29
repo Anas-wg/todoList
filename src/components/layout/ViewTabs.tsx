@@ -5,7 +5,7 @@ interface ViewTabsProps {
   onViewModeChange: (mode: "today" | "all") => void;
   onSortChange: (sortBy: SortKey) => void;
 }
-
+// 상단 오늘/모든 할 일 탭 컴포넌트
 const ViewTabs = ({
   viewMode,
   onViewModeChange,

@@ -5,7 +5,7 @@ interface SortBarProps {
   sortBy: SortKey;
   onChange: (key: SortKey) => void;
 }
-
+// 정렬 dropdown 컴포넌트
 const SortBar = ({ sortBy, onChange }: SortBarProps) => {
   return (
     <div className="flex items-center gap-2">

@@ -12,6 +12,7 @@ interface DateInputProps {
   required?: boolean;
   className?: string;
   error?: string;
+  disabled?: boolean;
 }
 
 const DateInput = ({
@@ -23,13 +24,16 @@ const DateInput = ({
   required = false,
   className = "",
   error,
+  disabled = false,
 }: DateInputProps) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const parsedDate = useDateParsing(value);
 
-  const baseInputClasses = `w-full px-0 py-2 text-gray-900 bg-transparent border-0 border-b-2 ${
+  const baseInputClasses = `w-full px-0 py-2 bg-transparent border-0 border-b-2 ${
     error ? "border-red-500" : "border-gray-300"
-  } focus:border-brand focus:outline-none focus:ring-0 transition-colors duration-200`;
+  } focus:border-brand focus:outline-none focus:ring-0 transition-colors duration-200 ${
+    disabled ? "text-gray-400 cursor-not-allowed" : "text-gray-900"
+  }`;
 
   const handleDateSelect = (day: Date | null) => {
     if (!day) {
@@ -71,13 +75,19 @@ const DateInput = ({
         }}
         className={`${baseInputClasses} pr-10 ${className}`}
         required={required}
+        disabled={disabled}
       />
 
       <button
         type="button"
         aria-label="달력 열기"
-        className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 px-2"
-        onClick={() => setIsCalendarOpen((v) => !v)}
+        className={`absolute right-0 top-1/2 -translate-y-1/2 px-2 ${
+          disabled
+            ? "text-gray-300 cursor-not-allowed"
+            : "text-gray-500 hover:text-gray-700"
+        }`}
+        onClick={() => !disabled && setIsCalendarOpen((v) => !v)}
+        disabled={disabled}
       >
         <CalendarIcon className="w-5 h-5" />
       </button>

@@ -19,6 +19,7 @@ const PrioritySelector = ({
   options,
   className = "",
 }: PrioritySelectorProps) => {
+  // 기본 우선순위 색상 반환
   const getPriorityColor = (priorityValue: string) => {
     const priorityKey = priorityValue as keyof typeof PRIORITY_COLOR_CLASSES;
     return (
@@ -26,7 +27,7 @@ const PrioritySelector = ({
       PRIORITY_COLOR_CLASSES[PRIORITY_LEVELS.LOW].base
     );
   };
-
+  // 선택된 우선순위 색상 반환
   const getSelectedColor = (priorityValue: string) => {
     const priorityKey = priorityValue as keyof typeof PRIORITY_COLOR_CLASSES;
     return (

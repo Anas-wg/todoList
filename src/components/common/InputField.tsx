@@ -18,6 +18,7 @@ interface InputFieldProps {
   error?: string;
   required?: boolean;
   options?: { value: string; label: string; color?: string }[];
+  disabled?: boolean;
 }
 
 const InputField = ({
@@ -31,6 +32,7 @@ const InputField = ({
   error,
   required = false,
   options,
+  disabled = false,
 }: InputFieldProps) => {
   const renderInput = () => {
     const commonProps = {
@@ -41,6 +43,7 @@ const InputField = ({
       placeholder,
       required,
       error,
+      disabled,
     };
 
     switch (type) {

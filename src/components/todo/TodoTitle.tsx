@@ -2,26 +2,34 @@ import type { Todo } from "../../types/todo";
 
 interface TodoTitleProps {
   todo: Todo;
-  onEdit: () => void;
+  onEdit?: () => void;
   className?: string;
 }
 
+// 할 일 제목 컴포넌트
 const TodoTitle = ({ todo, onEdit, className = "" }: TodoTitleProps) => {
+  const handleClick = () => {
+    if (onEdit) onEdit();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && onEdit) onEdit();
+  };
+
   return (
     <div
-      className={`cursor-pointer ${className}`}
-      onClick={onEdit}
-      role="button"
-      tabIndex={0}
-      aria-label={`할 일 편집: ${todo.title}`}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") onEdit();
-      }}
+      className={`${onEdit ? "cursor-pointer" : ""} ${className}`}
+      onClick={onEdit ? handleClick : undefined}
+      role={onEdit ? "button" : undefined}
+      tabIndex={onEdit ? 0 : undefined}
+      aria-label={onEdit ? `할 일 편집: ${todo.title}` : undefined}
+      onKeyDown={onEdit ? handleKeyDown : undefined}
     >
       <h3
-        className={`text-base font-medium leading-snug ${
+        className={`text-base font-medium leading-snug line-clamp-2 ${
           todo.completed ? "line-through text-gray-500" : "text-gray-900"
         }`}
+        title={todo.title}
       >
         {todo.title}
       </h3>

@@ -4,9 +4,11 @@ import { PRIORITY_ORDER } from "../utils/constants";
 
 export type SortKey = "none" | "dueDate" | "priority";
 
+// 할 일 정렬 커스텀 훅
 export function useSortedTodos(todos: Todo[], sortBy: SortKey) {
   return useMemo(() => {
     const copy = [...todos];
+    // 마감일 순 정렬
     if (sortBy === "dueDate") {
       copy.sort((a, b) => {
         const aHas = Boolean(a.dueDate);
@@ -19,6 +21,7 @@ export function useSortedTodos(todos: Todo[], sortBy: SortKey) {
         return 0;
       });
     } else if (sortBy === "priority") {
+      // 우선순위 순 정렬
       copy.sort(
         (a, b) =>
           (PRIORITY_ORDER[a.priority] ?? 99) -

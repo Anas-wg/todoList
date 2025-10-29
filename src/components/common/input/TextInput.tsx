@@ -23,6 +23,7 @@ const TextInput = ({
   className = "",
   error,
 }: TextInputProps) => {
+  // Inputfield 하단 테두리 색상 변경
   const baseInputClasses = `w-full px-0 py-2 text-gray-900 bg-transparent border-0 border-b-2 ${
     error ? "border-red-500" : "border-gray-300"
   } focus:border-brand focus:outline-none focus:ring-0 transition-colors duration-200`;

@@ -6,12 +6,13 @@ interface AddTodoModalProps {
   onCreateTodo: (data: CreateTodoData) => Promise<void>;
 }
 
+// 할 일 추가 모달 컴포넌트
 const AddTodoModal = ({ isOpen, onClose, onCreateTodo }: AddTodoModalProps) => {
   if (!isOpen) return null;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="add-todo-title"
@@ -21,7 +22,7 @@ const AddTodoModal = ({ isOpen, onClose, onCreateTodo }: AddTodoModalProps) => {
         onClick={onClose}
         aria-hidden="true"
       />
-      <div className="relative w-full md:w-auto max-w-2xl bg-white rounded-2xl md:rounded-xl shadow-xl p-4 md:p-6 max-h-[80vh] overflow-y-auto overflow-visible pb-16">
+      <div className="relative w-full md:w-[700px] max-w-4xl bg-white rounded-2xl md:rounded-xl shadow-xl p-4 md:p-6 max-h-[80vh] overflow-y-auto my-auto">
         <div className="flex items-center justify-between mb-2">
           <h3
             id="add-todo-title"

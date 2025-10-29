@@ -7,6 +7,7 @@ interface TodoCheckboxProps {
   idPrefix?: string;
 }
 
+// 할 일 완료 체크박스 컴포넌트
 const TodoCheckbox = ({
   todo,
   onToggle,

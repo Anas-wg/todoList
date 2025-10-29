@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Todo } from "../../types/todo";
 import { useTodoStore } from "../../store/todoStore";
 import PriorityBadge from "../common/PriorityBadge";
@@ -5,6 +6,7 @@ import TodoTitle from "./TodoTitle";
 import DueDateDisplay from "./DueDateDisplay";
 import DeleteButton from "./DeleteButton";
 import TodoCheckbox from "./TodoCheckbox";
+import EditIcon from "../common/icons/EditIcon";
 
 interface DisplayTodoItemProps {
   todo: Todo;
@@ -12,12 +14,15 @@ interface DisplayTodoItemProps {
   onDeleteRequest: () => void;
 }
 
+// 할 일 표시 컴포넌트
 const DisplayTodoItem = ({
   todo,
   onEdit,
   onDeleteRequest,
 }: DisplayTodoItemProps) => {
   const { updateTodo } = useTodoStore();
+  const [isContentExpanded, setIsContentExpanded] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   const handleToggleComplete = async () => {
     try {
@@ -27,46 +32,43 @@ const DisplayTodoItem = ({
     }
   };
 
+  const handleToggleContent = () => {
+    setIsContentExpanded(!isContentExpanded);
+  };
+
+  const handleToggleDescription = () => {
+    setIsDescriptionExpanded(!isDescriptionExpanded);
+  };
+
   return (
     <>
-      {/* 모바일 레이아웃 - 가로 배치 */}
-      <div className="flex items-center gap-3 md:hidden">
-        <TodoCheckbox
-          todo={todo}
-          onToggle={handleToggleComplete}
-          idPrefix="checkbox-mobile"
-        />
-        <TodoTitle todo={todo} onEdit={onEdit} className="flex-1 min-w-0" />
-        {todo.dueDate && (
-          <DueDateDisplay dueDate={todo.dueDate} onEdit={onEdit} />
-        )}
-        <button
-          type="button"
-          className="cursor-pointer flex-shrink-0"
-          onClick={onEdit}
-        >
-          <PriorityBadge priority={todo.priority} />
-        </button>
-        <DeleteButton onDelete={onDeleteRequest} />
-      </div>
-
-      {/* 태블릿/PC 레이아웃 - 카드 형태 */}
-      <>
-        {/* 상단: 체크박스 + 제목 + 삭제 버튼 */}
-        <div className="hidden md:flex items-center justify-between gap-3 mb-3">
-          <div className="flex items-center gap-3 flex-1 min-w-0 py-2">
-            <TodoCheckbox
+      {/* 모바일 레이아웃 - 세로 배치로 변경 */}
+      <div className="md:hidden">
+        <div className="flex items-center gap-2">
+          <TodoCheckbox
+            todo={todo}
+            onToggle={handleToggleComplete}
+            idPrefix="checkbox-mobile"
+          />
+          <button
+            type="button"
+            onClick={handleToggleContent}
+            className="flex-1 min-w-0 text-left"
+          >
+            <TodoTitle
               todo={todo}
-              onToggle={handleToggleComplete}
-              idPrefix="checkbox-desktop"
+              className="flex-1 min-w-0 pointer-events-none"
             />
-            <TodoTitle todo={todo} onEdit={onEdit} className="flex-1 min-w-0" />
-          </div>
-          <DeleteButton onDelete={onDeleteRequest} size="large" />
-        </div>
-
-        {/* 하단: 우선순위와 마감일 */}
-        <div className="hidden md:flex items-center justify-between gap-2 mt-auto py-2">
+          </button>
+          <button
+            type="button"
+            onClick={onEdit}
+            className="p-1 text-gray-500 hover:text-blue-600 flex-shrink-0"
+            aria-label="수정"
+          >
+            <EditIcon className="w-4 h-4" />
+          </button>
+          {todo.dueDate && <DueDateDisplay dueDate={todo.dueDate} />}
           <button
             type="button"
             className="cursor-pointer flex-shrink-0"
@@ -74,11 +76,70 @@ const DisplayTodoItem = ({
           >
             <PriorityBadge priority={todo.priority} />
           </button>
-          {todo.dueDate && (
-            <DueDateDisplay dueDate={todo.dueDate} onEdit={onEdit} />
-          )}
+          <DeleteButton onDelete={onDeleteRequest} />
         </div>
-      </>
+        {isContentExpanded && todo.description && (
+          <div
+            className={`mt-2 ml-9 text-sm whitespace-pre-wrap break-words ${
+              todo.completed ? "line-through text-gray-400" : "text-gray-600"
+            }`}
+          >
+            {todo.description}
+          </div>
+        )}
+      </div>
+
+      <div className="hidden md:flex md:flex-col md:h-full">
+        <div className="flex items-center justify-between gap-3 mb-3">
+          <div className="flex items-center gap-3 flex-1 min-w-0 py-2">
+            <TodoCheckbox
+              todo={todo}
+              onToggle={handleToggleComplete}
+              idPrefix="checkbox-desktop"
+            />
+            <TodoTitle todo={todo} className="flex-1 min-w-0" />
+            <button
+              type="button"
+              onClick={onEdit}
+              className="p-1 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+              aria-label="수정"
+            >
+              <EditIcon className="w-5 h-5" />
+            </button>
+          </div>
+          <DeleteButton onDelete={onDeleteRequest} size="large" />
+        </div>
+
+        {todo.description ? (
+          <div className="ml-9 mb-3">
+            <div
+              className={`text-sm whitespace-pre-wrap break-words ${
+                !isDescriptionExpanded ? "line-clamp-3" : ""
+              } ${
+                todo.completed ? "line-through text-gray-400" : "text-gray-600"
+              }`}
+            >
+              {todo.description}
+            </div>
+            {todo.description.length > 100 && (
+              <button
+                type="button"
+                onClick={handleToggleDescription}
+                className="text-xs text-blue-600 hover:text-blue-800 mt-1"
+              >
+                {isDescriptionExpanded ? "접기" : "더보기"}
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="ml-9 mb-3 min-h-[1.5rem]" />
+        )}
+
+        <div className="flex items-center justify-between gap-2 py-2">
+          <PriorityBadge priority={todo.priority} />
+          {todo.dueDate && <DueDateDisplay dueDate={todo.dueDate} />}
+        </div>
+      </div>
     </>
   );
 };
