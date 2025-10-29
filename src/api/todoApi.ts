@@ -56,7 +56,7 @@ export const todoApi = {
   // Todo 수정
   async updateTodo(id: string, updates: UpdateTodoData): Promise<Todo> {
     const response = await fetch(`${API_BASE_URL}/todos/${id}`, {
-      method: "PUT", // 실무에서 더 많이 사용
+      method: "POST", // POST로 통일
       headers: {
         "Content-Type": "application/json",
       },
@@ -67,8 +67,8 @@ export const todoApi = {
 
   // Todo 삭제
   async deleteTodo(id: string): Promise<void> {
-    const response = await fetch(`${API_BASE_URL}/todos/${id}`, {
-      method: "DELETE",
+    const response = await fetch(`${API_BASE_URL}/todos/${id}/delete`, {
+      method: "POST", // POST로 통일
     });
     return handleResponse<void>(response);
   },

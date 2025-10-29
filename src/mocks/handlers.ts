@@ -138,8 +138,8 @@ export const handlers = [
     return HttpResponse.json(newTodo, { status: 201 });
   }),
 
-  // PUT /api/todos/:id - Todo 수정 (실무에서 더 많이 사용)
-  http.put("/api/todos/:id", async ({ params, request }) => {
+  // POST /api/todos/:id - Todo 수정 (POST로 통일)
+  http.post("/api/todos/:id", async ({ params, request }) => {
     await delay(300);
     const { id } = params;
     const updates = (await request.json()) as Partial<Todo>;
@@ -161,8 +161,8 @@ export const handlers = [
     return HttpResponse.json(todos[todoIndex]);
   }),
 
-  // DELETE /api/todos/:id - Todo 삭제
-  http.delete("/api/todos/:id", async ({ params }) => {
+  // POST /api/todos/:id/delete - Todo 삭제 (POST로 통일)
+  http.post("/api/todos/:id/delete", async ({ params }) => {
     await delay(300);
     const { id } = params;
 
