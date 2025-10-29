@@ -7,7 +7,6 @@ React + TypeScript + Vite 기반의 할일 관리 애플리케이션입니다.
 - [실행 가이드](#실행-가이드)
 - [주소](#주소)
 - [기술 스택](#기술-스택)
-- [주요 기능](#주요-기능)
 - [폴더 구조](#폴더-구조)
 - [폴더 설명](#폴더-설명)
 - [컴포넌트 구조](#컴포넌트-구조)
@@ -46,15 +45,6 @@ npm run preview
 - **Vite** 6.2.0
 - **Zustand** 5.0.8 (상태 관리)
 - **Tailwind CSS** 4.1.16 (스타일링)
-
-## 주요 기능
-
-- ✅ 할일 추가, 수정, 삭제
-- 📅 날짜별 할일 관리
-- 🎯 우선순위 설정 (높음, 보통, 낮음)
-- 🔍 오늘/전체 보기 모드
-- 📊 정렬 기능 (날짜, 우선순위, 생성순)
-- 🎨 반응형 디자인
 
 ## 폴더 구조
 
@@ -116,3 +106,27 @@ src/
 
 - Node.js 18+ 권장
 - npm 또는 yarn
+
+## 주요 기능
+
+### 메인 화면
+
+- Mobile
+
+<img width="363" height="741" alt="Image" src="https://github.com/user-attachments/assets/23e52d7c-2561-4aa6-99c1-701e1a1d4caa" />
+
+- PC & Tablet
+
+<img width="575" height="601" alt="Image" src="https://github.com/user-attachments/assets/ac86ff0e-f192-4963-a96a-d90029790fee" />
+
+### 모든 todolist 조회
+
+<img width="375" height="671" alt="Image" src="https://github.com/user-attachments/assets/c0533d9c-5ac8-41df-8268-35694750fa60" />
+
+### 오늘 탭 - 날짜 이동
+
+> 상단 버튼을 통해 전날과 다음날로 이동
+
+<img width="377" height="671" alt="Image" src="https://github.com/user-attachments/assets/d6068c9a-2167-4fc2-97c6-1bd065aae0b7" />
+
+### 할 일 추가
