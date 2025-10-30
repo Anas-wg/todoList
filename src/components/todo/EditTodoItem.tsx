@@ -4,6 +4,7 @@ import { useTodoStore } from "../../store/todoStore";
 import BaseButton from "../common/BaseButton";
 import InputField from "../common/InputField";
 import { PRIORITY_OPTIONS } from "../../utils/constants";
+import { isValidDate } from "../../utils/dateValidation";
 
 interface EditTodoItemProps {
   todo: Todo;
@@ -24,11 +25,12 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
   const [errors, setErrors] = useState<{
     title?: string;
     description?: string;
+    dueDate?: string;
   }>({});
 
   // 수정 내용 저장 핸들러
   const handleSave = () => {
-    const newErrors: { title?: string; description?: string } = {};
+    const newErrors: { title?: string; description?: string; dueDate?: string } = {};
 
     if (!editedTitle.trim()) {
       newErrors.title = "제목은 필수 항목입니다.";
@@ -36,6 +38,11 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
 
     if (!editedDescription.trim()) {
       newErrors.description = "내용을 입력해주세요";
+    }
+
+    // 마감일이 있고 유효하지 않은 경우 검증
+    if (editedDueDate && !isValidDate(editedDueDate)) {
+      newErrors.dueDate = "올바른 날짜 형식이 아닙니다 (YYYY-MM-DD)";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -61,6 +68,7 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
     setNoDeadline(checked);
     if (checked) {
       setEditedDueDate("");
+      setErrors((prevErrors) => ({ ...prevErrors, dueDate: undefined }));
     }
   };
 
@@ -84,6 +92,15 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
       }
     } else if (name === "dueDate") {
       setEditedDueDate(value);
+      // 마감일 입력 시 실시간 검증
+      if (!value || isValidDate(value)) {
+        setErrors((prevErrors) => ({ ...prevErrors, dueDate: undefined }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          dueDate: "올바른 날짜 형식이 아닙니다 (YYYY-MM-DD)",
+        }));
+      }
     } else if (name === "priority") {
       setEditedPriority(value as Todo["priority"]);
     }
@@ -150,6 +167,7 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
           onChange={handleInputChange}
           label=""
           disabled={noDeadline}
+          error={errors.dueDate}
         />
       </div>
       <InputField
