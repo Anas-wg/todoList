@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
-import { useAddTodoForm } from "./useAddTodoForm";
+
 import type { CreateTodoData } from "../components/todo/AddTodoForm";
+import { useAddTodoForm } from "../hooks/useAddTodoForm";
 
 // 헬퍼: 폼 데이터 입력
 function fillFormData(

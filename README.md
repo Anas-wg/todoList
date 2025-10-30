@@ -184,7 +184,7 @@ AI도구를 통해 기능은 돌아가게끔 하였으나,
 
 ### 2. subTask 기능 구현 실패
 
-description 이외에 subTask를 두어 각 Item의 진행률을 계산한다면
+description 이외에 subTask를 두어 각 Item의 진행률을 계산후 보여준다면
 사용자 입장에서 더 편리한 todoList 가 될 것이라고 생각하였으나,
 
 타입 정의는 완료하였으나 실제 UI 구현과 상태 관리 로직을 완성하지 못함.
