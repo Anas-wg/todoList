@@ -138,7 +138,7 @@ src/
 
 <div style="display: flex; gap: 8px;">
   <img alt="TODO 수정 움짤" src="https://github.com/user-attachments/assets/f6282faf-6b07-44b3-82ee-01fdcabf7170" style="width: 50%; height: auto;" />
-  <img alt="TODO 수정 이미지" src="https://github.com/user-attachments/assets/b1c4f705-878f-4ed4-9d68-c1820102c55b" style="width: 50%; height: auto;" />
+  <img width="943" height="921" alt="Image" src="https://github.com/user-attachments/assets/c706b2a1-5a75-4900-ae84-b6c775005522" style="width: 50%; height: auto;" />
 </div>
 
 ### TODO 삭제
