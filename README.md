@@ -121,17 +121,29 @@ src/
 
 ![Image](https://github.com/user-attachments/assets/3a6bee38-61dd-4b9c-82b9-2de5c1aabc88)
 
+<div style="display: flex; gap: 8px;">
+  <img alt="TODO 등록 1" src="https://github.com/user-attachments/assets/ec212cc2-95f4-461c-92d3-73dd3c1723af" style="width: 33%; height: auto;" />
+  <img alt="TODO 등록 2" src="https://github.com/user-attachments/assets/c40f9bed-d008-41cb-b027-41a4e08d73da" style="width: 33%; height: auto;" />
+  <img alt="TODO 등록 3" src="https://github.com/user-attachments/assets/cfefd415-d1dc-403b-b3cd-d53f6ce733bc" style="width: 33%; height: auto;" />
+</div>
+
 ### TODO 목록조회
 
-![Image](https://github.com/user-attachments/assets/2d368c1f-57aa-42cb-b56c-14242c6b94e9)
+<div style="display: flex; gap: 8px;">
+  <img alt="TODO 목록 조회 움짤" src="https://github.com/user-attachments/assets/2d368c1f-57aa-42cb-b56c-14242c6b94e9" style="width: 50%; height: auto;" />
+  <img alt="TODO 목록 조회 이미지" src="https://github.com/user-attachments/assets/27d96ef5-4612-4286-bd1e-3075f9ca1873" style="width: 50%; height: auto;" />
+</div>
 
 ### TODO 수정
 
-![Image](https://github.com/user-attachments/assets/f6282faf-6b07-44b3-82ee-01fdcabf7170)
+<div style="display: flex; gap: 8px;">
+  <img alt="TODO 수정 움짤" src="https://github.com/user-attachments/assets/f6282faf-6b07-44b3-82ee-01fdcabf7170" style="width: 50%; height: auto;" />
+  <img alt="TODO 수정 이미지" src="https://github.com/user-attachments/assets/b1c4f705-878f-4ed4-9d68-c1820102c55b" style="width: 50%; height: auto;" />
+</div>
 
 ### TODO 삭제
 
-![Image](https://github.com/user-attachments/assets/cfc56404-74fb-4429-8ea1-928827ff9029)
+![Image](https://github.com/user-attachments/assets/337ba783-dc50-4443-818b-565d794d9df6)
 
 ### 마감기한 설정
 
