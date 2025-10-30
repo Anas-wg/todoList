@@ -49,7 +49,8 @@ export const useAddTodoForm = ({ onCreateTodo }: UseAddTodoFormProps) => {
       } else {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          dueDate: "올바른 날짜 형식이 아닙니다 (YYYY-MM-DD)",
+          dueDate:
+            "올바른 날짜 형식이 아니거나 (YYYY-MM-DD) 존재하지 않는 날짜입니다.",
         }));
       }
     }
@@ -83,7 +84,8 @@ export const useAddTodoForm = ({ onCreateTodo }: UseAddTodoFormProps) => {
     }
 
     if (formData.dueDate && !isValidDate(formData.dueDate)) {
-      newErrors.dueDate = "올바른 날짜 형식이 아닙니다 (YYYY-MM-DD)";
+      newErrors.dueDate =
+        "올바른 날짜 형식이 아니거나 (YYYY-MM-DD) 존재하지 않는 날짜입니다.";
     }
 
     if (Object.keys(newErrors).length > 0) {

@@ -30,7 +30,11 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
 
   // 수정 내용 저장 핸들러
   const handleSave = () => {
-    const newErrors: { title?: string; description?: string; dueDate?: string } = {};
+    const newErrors: {
+      title?: string;
+      description?: string;
+      dueDate?: string;
+    } = {};
 
     if (!editedTitle.trim()) {
       newErrors.title = "제목은 필수 항목입니다.";
@@ -42,7 +46,8 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
 
     // 마감일이 있고 유효하지 않은 경우 검증
     if (editedDueDate && !isValidDate(editedDueDate)) {
-      newErrors.dueDate = "올바른 날짜 형식이 아닙니다 (YYYY-MM-DD)";
+      newErrors.dueDate =
+        "올바른 날짜 형식이 아니거나 (YYYY-MM-DD) 존재하지 않는 날짜입니다.";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -98,7 +103,8 @@ const EditTodoItem = ({ todo, onCancel }: EditTodoItemProps) => {
       } else {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          dueDate: "올바른 날짜 형식이 아닙니다 (YYYY-MM-DD)",
+          dueDate:
+            "올바른 날짜 형식이 아니거나 (YYYY-MM-DD) 존재하지 않는 날짜입니다.",
         }));
       }
     } else if (name === "priority") {

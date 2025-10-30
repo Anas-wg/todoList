@@ -27,6 +27,7 @@ const AddTodoForm = ({ onCreateTodo }: AddTodoFormProps) => {
   return (
     <form
       onSubmit={handleFormSubmit}
+      noValidate
       className="bg-white p-4 md:p-6 rounded-lg mb-6 md:mb-8"
     >
       <InputField
